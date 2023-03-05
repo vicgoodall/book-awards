@@ -1,7 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@150");
+
 body {
     background-color: #171F77;
 }
 
-h1 {
+a.brand-logo {
     color: #00C89C;
+    font-family: "Nanum Myeongjo", 'Times New Roman', Times, serif;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+    margin-left: 3%;
+}
+
+.nav-wrapper {
+    background-color: #171F77;
 }

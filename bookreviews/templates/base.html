@@ -14,8 +14,36 @@
 </head>
 <body>
 
+    <header>
+        <!-- top navbar -->
+        <nav class="nav-extended">
+            <div class="nav-wrapper">
+                <a href="#!" class="brand-logo">The Tortoise Book Prize 2023</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+                <ul class="right hide-on-med-and-down">
+                  <li><a href="#">Home</a></li> 
+                  <li><a href="#">Log In</a></li> 
+                  <li><a href="#">Profile</a></li>
+                  <li><a href="#">About</a></li>
+                  <li><a href="#">Reviews</a></li>
+                  <li><a href="#">Log Out</a></li>
+                  <li><a href="#">Register</a></li>
+                </ul>
+            </div>
+        </nav>
+            
+        <!-- mobile sidenav -->
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="#">Home</a></li> 
+            <li><a href="#">Log In</a></li> 
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Reviews</a></li>
+            <li><a href="#">Log Out</a></li>
+            <li><a href="#">Register</a></li>
+        </ul>
+    </header>
     {% block content %}
-    <h1>The Tortoise Book Prize 2023</h1>
     {% endblock %}
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
