@@ -32,6 +32,7 @@ class Role(db.Model):
 class Teacher(db.Model):
     # schema for the teacher model
     id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
     prefix = db.Column(db.String(8), nullable=False)
     surname = db.Column(db.String(30), nullable=False)
     school = db.Column(db.String(50), nullable=False)
