@@ -36,6 +36,7 @@ class Teacher(db.Model):
     prefix = db.Column(db.String(8), nullable=False)
     surname = db.Column(db.String(30), nullable=False)
     school = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(30), nullable=False)
     role = db.Column(
         db.Integer, db.ForeignKey(
             "role.id", ondelete="CASCADE"), nullable=False)
@@ -57,6 +58,7 @@ class Student(db.Model):
     surname_initial = db.Column(db.String(2), nullable=False)
     school = db.Column(db.String(50), nullable=False)
     books_read = db.Column(db.Integer)
+    password = db.Column(db.String(30), nullable=False)
     role = db.Column(
         db.Integer, db.ForeignKey(
             "role.id", ondelete="CASCADE"), nullable=False)
