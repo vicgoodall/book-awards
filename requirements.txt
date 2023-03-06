@@ -6,4 +6,3 @@ itsdangerous==2.1.2
 psycopg2==2.9.5
 SQLAlchemy==1.4.46
 Werkzeug==2.2.3
-web: python run.py
