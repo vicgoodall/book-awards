@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 def home():
     return render_template("base.html")
 
+
 # register new user
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -21,7 +22,7 @@ def register():
             return redirect(url_for("register"))
         # if no email matches, register new user by adding to db
         else:
-            new_user = Teachers(
+            user = Teachers(
                 email=request.form.get("email").lower(),
                 prefix=request.form.get("prefix").lower(),
                 surname=request.form.get("surname").lower(),
@@ -29,13 +30,23 @@ def register():
                 role=1,
                 password=generate_password_hash(request.form.get("password")))
 
-            db.session.add(new_user)
+            db.session.add(user)
             db.session.commit()
 
         # put the new user into 'session' cookie
-            session["new_user"] = request.form.get("email").lower()
+            session["user"] = request.form.get("email").lower()
             flash("Registration Successful")
-            return redirect(url_for("home"))
-    # NEED TO RETURN TO THIS SECTION TO ROUTE BACK TO ACCOUNT PAGE WHEN THAT IS SET UP!
+            return redirect(url_for("account", user=session["user"]))
 
     return render_template("register.html")
+
+
+@app.route("/account/<user>", methods=["GET", "POST"])
+def account(user):
+
+    if "user" in session:
+        user_info = Teachers.query.filter_by(email=user).first()
+        return render_template(
+            "account.html", user=session["user"], account_details=user_info)
+
+    return render_template("account.html")
