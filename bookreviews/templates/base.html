@@ -21,26 +21,26 @@
                 <a href="#!" class="brand-logo">The Tortoise Book Prize 2023</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
                 <ul class="right hide-on-med-and-down">
-                  <li><a href="#">Home</a></li> 
-                  <li><a href="#">Log In</a></li> 
-                  <li><a href="{{ url_for('account', user=session['user']) }}">Account</a></li>
-                  <li><a href="#">About</a></li>
-                  <li><a href="#">Reviews</a></li>
-                  <li><a href="#">Log Out</a></li>
-                  <li><a href="{{ url_for('register') }}">Register</a></li>
+                  <li><a href="#" class="yellow-text text-lighten-4">Home</a></li> 
+                  <li><a href="#" class="yellow-text text-lighten-4">Log In</a></li> 
+                  <li><a href="{{ url_for('account', user=session['user']) }}" class="yellow-text text-lighten-4">Account</a></li>
+                  <li><a href="#" class="yellow-text text-lighten-4">About</a></li>
+                  <li><a href="#" class="yellow-text text-lighten-4">Reviews</a></li>
+                  <li><a href="#" class="yellow-text text-lighten-4">Log Out</a></li>
+                  <li><a href="{{ url_for('register') }}" class="yellow-text text-lighten-4">Register</a></li>
                 </ul>
             </div>
         </nav>
             
         <!-- mobile sidenav -->
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="#">Home</a></li> 
-            <li><a href="#">Log In</a></li> 
-            <li><a href="{{ url_for('account', user=session['user']) }}">Account</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Reviews</a></li>
-            <li><a href="#">Log Out</a></li>
-            <li><a href="{{ url_for('register') }}">Register</a></li>
+            <li><a href="#" class="yellow-text text-lighten-4">Home</a></li> 
+            <li><a href="#" class="yellow-text text-lighten-4">Log In</a></li> 
+            <li><a href="{{ url_for('account', user=session['user']) }}" class="text-yellow text-lighten-4">Account</a></li>
+            <li><a href="#" class="yellow-text text-lighten-4">About</a></li>
+            <li><a href="#" class="yellow-text text-lighten-4">Reviews</a></li>
+            <li><a href="#" class="yellow-text text-lighten-4">Log Out</a></li>
+            <li><a href="{{ url_for('register') }}" class="yellow-text text-lighten-4">Register</a></li>
         </ul>
     </header>
 

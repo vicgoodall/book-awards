@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@150");
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Playfair+Display&display=swap');
 
 body {
     background-color: #171F77;
@@ -6,7 +6,7 @@ body {
 
 a.brand-logo {
     color: #00C89C;
-    font-family: "Nanum Myeongjo", 'Times New Roman', Times, serif;
+    font-family: 'Nanum Myeongjo', sans-serif;
     text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
     margin-left: 3%;
 }
@@ -17,6 +17,8 @@ a.brand-logo {
 
 h3 {
     color: #00C89C;
+    margin-left: 40%;
+    font-family: 'Playfair Display', sans-serif;
 }
 
 
@@ -31,4 +33,21 @@ div.card-panel {
 .flashes h4 {
     line-height: 2;
 }
+
+.basic-template {
+    background-color: #FFFADE;
+}
+
+p {
+    color: black;
+    text-indent: 2%;
+    font-family: 'Playfair Display', sans-serif;
+}
+
+.account {
+    color: #171F77;
+    text-indent: 2%;
+    font-family: 'Playfair Display', sans-serif; 
+}
+
 

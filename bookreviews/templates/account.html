@@ -4,45 +4,41 @@
 <h3> My Account </h3>
 
 <div class="row">
-    <div class="col s12 m6">
+    <div class="col s12 m4">
       <div class="card basic-template">
         <div class="card-content white-text">
-          <span class="card-title">My Details</span>
+          <span class="card-title account">My Details</span>
           <p>
             Name: {{  account_details.prefix.capitalize() + " " + account_details.surname.capitalize()  }}</p>
+          <p>School: {{ account_details.school.capitalize() }}</p>
+          <p>Email: {{ account_details.email }}</p>
         </div>
-        <div class="card-action">
-          <a href="#">Edit</a>
-        </div>
-      </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col s12 m6">
-      <div class="card basic-template">
-        <div class="card-content white-text">
-          <span class="card-title">Card Title</span>
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
-        </div>
-        <div class="card-action">
-          <a href="#">Edit</a>
+        <div class="card-action account">
+          <a href="#" class="black-text">Edit</a>
         </div>
       </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="col s12 m6">
+    <div class="col s12 m4">
       <div class="card basic-template">
         <div class="card-content white-text">
-          <span class="card-title">Card Title</span>
-          <p>I am a very simple card. I am good at containing small bits of information.
-          I am convenient because I require little markup to use effectively.</p>
+          <span class="card-title account">Students</span>
+          <p>Return to later to add list of students.</p>
         </div>
-        <div class="card-action">
-          <a href="#">Edit</a>
+        <div class="card-action account">
+          <a href="#" class="black-text">Create new student account</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m4">
+      <div class="card basic-template">
+        <div class="card-content white-text">
+          <span class="card-title account">Students' Reviews</span>
+          <p>Return to later to either delete or create link to review mgmt.</p>
+        </div>
+        <div class="card-action account">
+          <a href="#" class="black-text">View reviews</a>
         </div>
       </div>
     </div>
