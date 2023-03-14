@@ -3,11 +3,14 @@
 
 <h3> My Account </h3>
 
+<!-- only show this Accounts section if user has teacher role -->
+{% if account_details.role == 1: %}
 <div class="row">
     <div class="col s12 m4">
       <div class="card basic-template">
         <div class="card-content white-text">
           <span class="card-title account">My Details</span>
+          <!-- User can view their account details here -->
           <p>
             Name: {{  account_details.prefix.capitalize() + " " + account_details.surname.capitalize()  }}</p>
           <p>School: {{ account_details.school.capitalize() }}</p>
@@ -23,10 +26,11 @@
       <div class="card basic-template">
         <div class="card-content white-text">
           <span class="card-title account">Students</span>
+          <!-- User will be able to view student accounts assigned to them and create more. -->
           <p>Return to later to add list of students.</p>
         </div>
         <div class="card-action account">
-          <a href="#" class="black-text">Create new student account</a>
+          <a href="{{ url_for(student-register) }}" class="black-text">Create new student account</a>
         </div>
       </div>
     </div>
@@ -35,6 +39,7 @@
       <div class="card basic-template">
         <div class="card-content white-text">
           <span class="card-title account">Students' Reviews</span>
+          <!-- User can navigate from here to their students' reviews in order to check them and delete if necessary -->
           <p>Return to later to either delete or create link to review mgmt.</p>
         </div>
         <div class="card-action account">
@@ -43,5 +48,53 @@
       </div>
     </div>
 </div>
+{% endif %} 
+
+<!-- only show this if user is a student -->
+{% if account_details.role == 2: %}
+<div class="row">
+    <div class="col s12 m4">
+      <div class="card basic-template">
+        <div class="card-content white-text">
+          <span class="card-title account">My Details</span>
+          <!-- User can view their account details here -->
+          <p>
+            Name: {{  account_details.first_name.capitalize() + " " + account_details.surname_initial.capitalize()  }}</p>
+          <p>School: {{ account_details.school.capitalize() }}</p>
+          <p>Email: {{ account_details.username }}</p>
+        </div>
+        <div class="card-action account">
+          <a href="#" class="black-text">Edit</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m4">
+      <div class="card basic-template">
+        <div class="card-content white-text">
+          <span class="card-title account">My Reviews</span>
+          <!-- User can view reviews they have created and edit/delete -->
+          <p>Can see options about reviews they have already created.</p>
+        </div>
+        <div class="card-action account">
+          <a href="#" class="black-text">View reviews</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s12 m4">
+      <div class="card basic-template">
+        <div class="card-content white-text">
+          <span class="card-title account">Books to Review</span>
+          <!-- User can see which books are still available for them to review -->
+          <p>Show any books with links to review</p>
+        </div>
+        <div class="card-action account">
+          <a href="#" class="black-text">Add reviews</a>
+        </div>
+      </div>
+    </div>
+</div>
+{% endif %} 
 
 {% endblock %} 

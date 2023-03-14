@@ -43,10 +43,104 @@ def register():
 
 @app.route("/account/<user>", methods=["GET", "POST"])
 def account(user):
-
+    # provide user details for the account page
     if "user" in session:
-        user_info = Teachers.query.filter_by(email=user).first()
         return render_template(
-            "account.html", user=session["user"], account_details=user_info)
+                "account.html", user=session["user"],
+                account_details=user_info)
+    # where user is not logged in, user navigated to login
+    else:
+        return render_template("login.html")
 
     return render_template("account.html")
+
+
+@app.route("/student-register", methods=["GET", "POST"])
+def registerStudent():
+    if request.method == "POST":
+        student = request.form["username"]
+        # first query to check if username already exists
+        found_student = Students.query.filter_by(username=student).first()
+        if found_student:
+            flash("User already exists with this username.")
+            return redirect(url_for("student-register"))
+        # if no username matches, register new user by adding to db
+        else:
+            user = session["user"]
+            student = Students(
+                username=request.form.get("username").lower(),
+                first_name=request.form.get("first_name").lower(),
+                surname_initial=request.form.get("surname_initial").lower(),
+                school=user.school,
+                role=2,
+                books_read=0,
+                teacher=user.id,
+                password=generate_password_hash(request.form.get("password")))
+
+            db.session.add(student)
+            db.session.commit()
+
+            flash("Registration Successful")
+            return redirect(url_for("account", user=session["user"]))
+
+    return render_template("student-register.html")
+
+
+@app.route("/login-teacher", methods=["GET", "POST"])
+def loginTeacher():
+    if request.method == "POST":
+        # check if email exists in db
+        existing_user = Teachers.query.filter(Teachers.email ==
+                                              request.form.get(
+                                                "email").lower()).all()
+
+        if existing_user:
+            print(request.form.get("email"))
+            # ensure hashed password matches user input
+            if check_password_hash(
+              existing_user[0].password, request.form.get("password")):
+                session["user"] = request.form.get("email").lower()
+                flash("Welcome, {}".format(request.form.get("email")))
+                return redirect(url_for(
+                        "account", email=session["user"]))
+            else:
+                # invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("login-teacher"))
+
+        else:
+            # username doesn't exist
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("login-teacher"))
+
+    return render_template("login-teacher.html")
+
+
+@app.route("/login-student", methods=["GET", "POST"])
+def loginStudent():
+    if request.method == "POST":
+        # check if email exists in db
+        existing_user = Students.query.filter(Students.username ==
+                                              request.form.get(
+                                                "username").lower()).all()
+
+        if existing_user:
+            print(request.form.get("username"))
+            # ensure hashed password matches user input
+            if check_password_hash(
+              existing_user[0].password, request.form.get("password")):
+                session["user"] = request.form.get("username").lower()
+                flash("Welcome, {}".format(request.form.get("username")))
+                return redirect(url_for(
+                        "account", username=session["user"]))
+            else:
+                # invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("login-student"))
+
+        else:
+            # username doesn't exist
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("login-student"))
+
+    return render_template("login-student.html")
