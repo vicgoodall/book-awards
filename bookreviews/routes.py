@@ -10,6 +10,11 @@ def home():
     return render_template("base.html")
 
 
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
 # register new user
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -79,7 +84,7 @@ def registerStudent(user):
                 user = session["user"]
                 teacher = Teachers.query.filter_by(email=user).first()
                 student = Students(
-                    username=request.form.get("username").lower(),
+                    email=request.form.get("email").lower(),
                     first_name=request.form.get("first_name").lower(),
                     surname_initial=request.form.get(
                         "surname_initial").lower(),
@@ -135,17 +140,17 @@ def loginStudent():
         # check if email exists in db
         existing_user = Students.query.filter(Students.username ==
                                               request.form.get(
-                                                "username").lower()).all()
+                                                "email").lower()).all()
 
         if existing_user:
-            print(request.form.get("username"))
+            print(request.form.get("email"))
             # ensure hashed password matches user input
             if check_password_hash(
               existing_user[0].password, request.form.get("password")):
-                session["user"] = request.form.get("username").lower()
-                flash("Welcome, {}".format(request.form.get("username")))
+                session["user"] = request.form.get("email").lower()
+                flash("Welcome, {}".format(request.form.get("email")))
                 return redirect(url_for(
-                        "account", username=session["user"]))
+                        "account", email=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")

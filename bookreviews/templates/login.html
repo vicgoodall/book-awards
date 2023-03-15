@@ -1,0 +1,22 @@
+{% extends "base.html" %} 
+{% block content %} 
+
+<h3> Log In </h3>
+
+<div class="col s12 m4">
+    <div class="card basic-template">
+      <div class="card-content white-text">
+        <span class="card-title account">Are you logging in as a Student or Teacher? </span>
+      </div>
+      <div class="card-action account">
+        <a href="{{ url_for('loginStudent') }}" class="black-text">Student</a>
+        <a href="{{ url_for('loginTeacher') }}" class="black-text">Teacher</a>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

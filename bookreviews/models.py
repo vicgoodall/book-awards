@@ -28,8 +28,8 @@ class Roles(db.Model):
 class Teachers(db.Model):
     # schema for the teacher model
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(40), unique=True, nullable=False)
-    prefix = db.Column(db.String(8), nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    prefix = db.Column(db.String(20), nullable=False)
     surname = db.Column(db.String(30), nullable=False)
     school = db.Column(db.String(50), nullable=False)
     password = db.Column(db.String(200), nullable=False)
@@ -49,7 +49,7 @@ class Teachers(db.Model):
 class Students(db.Model):
     # schema for the student model
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
     first_name = db.Column(db.String(20), nullable=False)
     surname_initial = db.Column(db.String(2), nullable=False)
     school = db.Column(db.String(50), nullable=False)
