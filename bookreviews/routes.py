@@ -45,9 +45,16 @@ def register():
 def account(user):
     # provide user details for the account page
     if "user" in session:
-        return render_template(
+        teacher_search = Teachers.query.filter_by(email=user).first()
+        if teacher_search:
+            return render_template(
                 "account.html", user=session["user"],
-                account_details=user_info)
+                account_details=teacher_search)
+        else:
+            student_search = Students.query.filter_by(username=user).first()
+            return render_template(
+                "account.html", user=session["user"],
+                account_details=student_search)
     # where user is not logged in, user navigated to login
     else:
         return render_template("login.html")
@@ -55,30 +62,34 @@ def account(user):
     return render_template("account.html")
 
 
-@app.route("/student-register", methods=["GET", "POST"])
-def registerStudent():
-    if request.method == "POST":
-        student = request.form["username"]
-        # first query to check if username already exists
-        found_student = Students.query.filter_by(username=student).first()
-        if found_student:
-            flash("User already exists with this username.")
-            return redirect(url_for("student-register"))
-        # if no username matches, register new user by adding to db
-        else:
-            user = session["user"]
-            student = Students(
-                username=request.form.get("username").lower(),
-                first_name=request.form.get("first_name").lower(),
-                surname_initial=request.form.get("surname_initial").lower(),
-                school=user.school,
-                role=2,
-                books_read=0,
-                teacher=user.id,
-                password=generate_password_hash(request.form.get("password")))
+@app.route("/student-register/<user>", methods=["GET", "POST"])
+def registerStudent(user):
+    if "user" in session:
+        if request.method == "POST":
+            student = request.form["username"]
+            # first query to check if username already exists
+            found_student = Students.query.filter_by(username=student).first()
+            if found_student:
+                flash("User already exists with this username.")
+                return redirect(url_for("student-register"))
+            # if no username matches, register new user by adding to db
+            else:
+                user = session["user"]
+                teacher = Teachers.query.filter_by(email=user).first()
+                student = Students(
+                    username=request.form.get("username").lower(),
+                    first_name=request.form.get("first_name").lower(),
+                    surname_initial=request.form.get(
+                        "surname_initial").lower(),
+                    school=teacher.school,
+                    role=2,
+                    books_read=0,
+                    teacher=teacher.id,
+                    password=generate_password_hash(
+                        request.form.get("password")))
 
-            db.session.add(student)
-            db.session.commit()
+                db.session.add(student)
+                db.session.commit()
 
             flash("Registration Successful")
             return redirect(url_for("account", user=session["user"]))

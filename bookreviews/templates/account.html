@@ -30,7 +30,7 @@
           <p>Return to later to add list of students.</p>
         </div>
         <div class="card-action account">
-          <a href="{{ url_for(student-register) }}" class="black-text">Create new student account</a>
+          <a href="{{  url_for('registerStudent', user=session['user'])  }}" class="black-text">Create new student account</a>
         </div>
       </div>
     </div>
