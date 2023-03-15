@@ -66,7 +66,7 @@ def account(user):
                 "account.html", user=session["user"],
                 account_details=teacher_search, students=students)
         else:
-            student_search = Students.query.filter_by(username=user).first()
+            student_search = Students.query.filter_by(email=user).first()
             return render_template(
                 "account.html", user=session["user"],
                 account_details=student_search)
@@ -156,9 +156,9 @@ def loginStudent():
             if check_password_hash(
               existing_user[0].password, request.form.get("password")):
                 session["user"] = request.form.get("email").lower()
-                flash("Welcome, {}".format(request.form.get("email")))
+                flash("You are now logged in.")
                 return redirect(url_for(
-                        "account", email=session["user"]))
+                        "account", user=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Email and/or Password")
@@ -178,3 +178,26 @@ def logout():
     flash("You have been logged out.")
     session.pop("user")
     return redirect(url_for("login"))
+
+
+@app.route("/add-review", methods=["GET", "POST"])
+def addReview():
+    if "user" in session:
+        user = session["user"]
+        if request.method == "POST":
+            reviewer = Students.query.filter_by(email=user).first()
+            review = Reviews(
+                reviewer=reviewer.id,
+                title=request.form.get("title").lower(),
+                rating=request.form.get(
+                    "rating"),
+                review=request.form.get("review"),
+                book=request.form.get("book"))
+
+            db.session.add(review)
+            db.session.commit()
+
+            flash("Your review has been published.")
+            return redirect(url_for("account", user=session["user"]))
+
+    return render_template("add-review.html")

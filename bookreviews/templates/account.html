@@ -64,11 +64,8 @@
           <!-- User can view their account details here -->
           <p>
             Name: {{  account_details.first_name.capitalize() + " " + account_details.surname_initial.capitalize()  }}</p>
-          <p>School: {{ account_details.school.capitalize() }}</p>
-          <p>Email: {{ account_details.username }}</p>
-        </div>
-        <div class="card-action account">
-          <a href="#" class="black-text">Edit</a>
+          <p>School: {{ account_details.school.title() }}</p>
+          <p>Email: {{ account_details.email }}</p>
         </div>
       </div>
     </div>
@@ -94,7 +91,7 @@
           <p>Show any books with links to review</p>
         </div>
         <div class="card-action account">
-          <a href="#" class="black-text">Add reviews</a>
+          <a href="{{  url_for('addReview')  }}" class="black-text">Add reviews</a>
         </div>
       </div>
     </div>
