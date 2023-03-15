@@ -23,10 +23,13 @@
                 <ul class="right hide-on-med-and-down">
                   <li><a href="#" class="yellow-text text-lighten-4">Home</a></li> 
                   <li><a href="{{ url_for('login') }}" class="yellow-text text-lighten-4">Log In</a></li> 
+                  <!-- only show Account section if user is logged in -->
+                  {% if "user" in session: %}
                   <li><a href="{{ url_for('account', user=session['user']) }}" class="yellow-text text-lighten-4">Account</a></li>
+                  {% endif %}
                   <li><a href="#" class="yellow-text text-lighten-4">About</a></li>
                   <li><a href="#" class="yellow-text text-lighten-4">Reviews</a></li>
-                  <li><a href="#" class="yellow-text text-lighten-4">Log Out</a></li>
+                  <li><a href="{{ url_for('logout') }}" class="yellow-text text-lighten-4">Log Out</a></li>
                   <li><a href="{{ url_for('register') }}" class="yellow-text text-lighten-4">Register</a></li>
                 </ul>
             </div>
@@ -36,10 +39,12 @@
         <ul class="sidenav" id="mobile-demo">
             <li><a href="#" class="yellow-text text-lighten-4">Home</a></li> 
             <li><a href="{{ url_for('login') }}" class="yellow-text text-lighten-4">Log In</a></li> 
+            {% if "user" in session: %}
             <li><a href="{{ url_for('account', user=session['user']) }}" class="text-yellow text-lighten-4">Account</a></li>
+            {% endif %}
             <li><a href="#" class="yellow-text text-lighten-4">About</a></li>
             <li><a href="#" class="yellow-text text-lighten-4">Reviews</a></li>
-            <li><a href="#" class="yellow-text text-lighten-4">Log Out</a></li>
+            <li><a href="{{ url_for('logout') }}" class="yellow-text text-lighten-4">Log Out</a></li>
             <li><a href="{{ url_for('register') }}" class="yellow-text text-lighten-4">Register</a></li>
         </ul>
     </header>
@@ -50,7 +55,7 @@
             {% if messages %} 
                 {% for message in messages %}
                     <div class="row flashes">
-                        <h4 class="light-blue lighten-4 center-align">{{ message }}</h4>
+                        <h4 class="#64ffda teal accent-2 center-align">{{ message }}</h4>
                     </div> 
                 {% endfor %}
             {% endif %} 

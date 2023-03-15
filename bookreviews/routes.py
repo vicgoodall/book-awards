@@ -12,12 +12,20 @@ def home():
 
 @app.route("/login")
 def login():
+    if "user" in session:
+        # if user is already logged in, flash message and redirect to account
+        flash("You are already logged in.")
+        return redirect(url_for("account", user=session["user"]))
     return render_template("login.html")
 
 
 # register new user
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    if "user" in session:
+        # if user is already logged in, flash message and redirect to account
+        flash("You are already registered.")
+    return redirect(url_for("account", user=session["user"]))
     if request.method == "POST":
         user = request.form["email"]
         # first query to check if user already exists
@@ -63,7 +71,7 @@ def account(user):
                 "account.html", user=session["user"],
                 account_details=student_search)
     # where user is not logged in, user navigated to login
-    else:
+    elif user is None:
         return render_template("login.html")
 
     return render_template("account.html")
@@ -73,13 +81,13 @@ def account(user):
 def registerStudent(user):
     if "user" in session:
         if request.method == "POST":
-            student = request.form["username"]
-            # first query to check if username already exists
-            found_student = Students.query.filter_by(username=student).first()
+            student = request.form["email"]
+            # first query to check if email already exists
+            found_student = Students.query.filter_by(email=student).first()
             if found_student:
-                flash("User already exists with this username.")
-                return redirect(url_for("student-register"))
-            # if no username matches, register new user by adding to db
+                flash("User already exists with this email.")
+                return redirect(url_for("registerStudent"))
+            # if no email matches, register new user by adding to db
             else:
                 user = session["user"]
                 teacher = Teachers.query.filter_by(email=user).first()
@@ -118,18 +126,18 @@ def loginTeacher():
             if check_password_hash(
               existing_user[0].password, request.form.get("password")):
                 session["user"] = request.form.get("email").lower()
-                flash("Welcome, {}".format(request.form.get("email")))
+                flash("You are now logged in.")
                 return redirect(url_for(
-                        "account", email=session["user"]))
+                        "account", user=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")
-                return redirect(url_for("login-teacher"))
+                return redirect(url_for("loginTeacher"))
 
         else:
             # username doesn't exist
             flash("Incorrect Username and/or Password")
-            return redirect(url_for("login-teacher"))
+            return redirect(url_for("loginTeacher"))
 
     return render_template("login-teacher.html")
 
@@ -138,7 +146,7 @@ def loginTeacher():
 def loginStudent():
     if request.method == "POST":
         # check if email exists in db
-        existing_user = Students.query.filter(Students.username ==
+        existing_user = Students.query.filter(Students.email ==
                                               request.form.get(
                                                 "email").lower()).all()
 
@@ -153,12 +161,20 @@ def loginStudent():
                         "account", email=session["user"]))
             else:
                 # invalid password match
-                flash("Incorrect Username and/or Password")
+                flash("Incorrect Email and/or Password")
                 return redirect(url_for("login-student"))
 
         else:
             # username doesn't exist
             flash("Incorrect Username and/or Password")
-            return redirect(url_for("login-student"))
+            return redirect(url_for("loginStudent"))
 
     return render_template("login-student.html")
+
+
+@app.route("/logout")
+def logout():
+    # log the user out of their session
+    flash("You have been logged out.")
+    session.pop("user")
+    return redirect(url_for("login"))
