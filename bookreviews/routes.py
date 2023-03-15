@@ -184,6 +184,7 @@ def logout():
 def addReview():
     if "user" in session:
         user = session["user"]
+        # student adds new review
         if request.method == "POST":
             reviewer = Students.query.filter_by(email=user).first()
             review = Reviews(
@@ -195,6 +196,9 @@ def addReview():
                 book=request.form.get("book"))
 
             db.session.add(review)
+            db.session.commit()
+            # every time review is published, increment student's books_read
+            reviewer.books_read = reviewer.books_read + 1
             db.session.commit()
 
             flash("Your review has been published.")
