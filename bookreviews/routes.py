@@ -47,9 +47,11 @@ def account(user):
     if "user" in session:
         teacher_search = Teachers.query.filter_by(email=user).first()
         if teacher_search:
+            students = Students.query.filter_by(
+                teacher=teacher_search.id).all()
             return render_template(
                 "account.html", user=session["user"],
-                account_details=teacher_search)
+                account_details=teacher_search, students=students)
         else:
             student_search = Students.query.filter_by(username=user).first()
             return render_template(
