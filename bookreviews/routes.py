@@ -281,3 +281,30 @@ def updateTeacher(user):
         flash("Account updated successfully.")
         return render_template("update-teacher.html", teacher=teacher)
     return render_template("update-teacher.html")
+
+
+@app.route("/my-reviews/<user>")
+def myReviews(user):
+    student_search = Students.query.filter_by(email=user).first()
+    if student_search is not None:
+        student = student_search.id
+        review_search = Reviews.query.filter_by(reviewer=student)
+        return render_template(
+                    "my-reviews.html", user=session["user"],
+                    reviews=review_search)
+
+
+@app.route("/my-reviews/<user>,<review>")
+def deleteReview(user, review):
+    student_search = Students.query.filter_by(email=user).first()
+    review = Reviews.query.filter_by(id=review).first()
+    db.session.delete(review)
+    # reduce user's book_read count by 1 when deleting review
+    student_search.books_read = student_search.books_read - 1
+    db.session.commit()
+    flash("Review deleted successfully.")
+    if student_search is not None:
+        student = student_search.id
+        review_search = Reviews.query.filter_by(reviewer=student)
+    return render_template("my-reviews.html", user=session["user"],
+                           reviews=review_search)

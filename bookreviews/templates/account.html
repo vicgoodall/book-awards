@@ -99,7 +99,7 @@
           {% endif %}
         </div>
         <div class="card-action account">
-          <a href="#" class="black-text">View reviews</a>
+          <a href="{{ url_for('myReviews', user=session['user']) }}" class="black-text">View reviews</a>
         </div>
       </div>
     </div>
