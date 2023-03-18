@@ -6,15 +6,13 @@
     <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('addReview') }}">
         <div class="card-panel">
             <!-- Select book to review -->
-            <div class="input-field col s12">
+            <div class="input-field col s12" action="{{ url_for('booksNotReviewed') }}">
                 <select id="book" name="book" class="validate" required>
-                  <option value="" disabled selected>Select Book</option>
-                  <option value="1">Journey to the River Sea</option>
-                  <option value="2">A Gathering Light</option>
-                  <option value="3">Red Sky in the Morning</option>
-                  <option value="4">Kensuke's Kingdom</option>
-                  <option value="5">Bloomability</option>
-                  <option value="6">How I Live Now</option>
+                    <option value="" disabled selected>Select Book</option>
+                    <!-- only books they have yet to review are available in the dropdown -->
+                    {% for book in books %}
+                    <option value="{{ book.id }}">{{ book.title.title() }}</option>
+                    {% endfor %}
                 </select>
                 <label>Select Book</label>
             </div>

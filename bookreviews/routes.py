@@ -67,9 +67,15 @@ def account(user):
                 account_details=teacher_search, students=students)
         else:
             student_search = Students.query.filter_by(email=user).first()
-            return render_template(
-                "account.html", user=session["user"],
-                account_details=student_search)
+            if student_search is not None:
+                student = student_search.id
+                review_search = Reviews.query.filter_by(reviewer=student)
+                return render_template(
+                    "account.html", user=session["user"],
+                    account_details=student_search, reviews=review_search)
+            else:
+                return render_template("account.html", user=session["user"],
+                                       account_details=1)
     # where user is not logged in, user navigated to login
     elif user is None:
         return render_template("login.html")
@@ -180,14 +186,28 @@ def logout():
     return redirect(url_for("login"))
 
 
-@app.route("/add-review", methods=["GET", "POST"])
-def addReview():
+@app.route("/add-review")
+# returns query of books yet to be reviewed by user
+def booksNotReviewed():
     if "user" in session:
         user = session["user"]
-        # student adds new review
-        if request.method == "POST":
-            reviewer = Students.query.filter_by(email=user).first()
-            review = Reviews(
+        student_search = Students.query.filter_by(email=user).first()
+        student = student_search.id
+        subquery = db.session.query(Reviews.book).filter(
+            Reviews.reviewer == student).subquery()
+        books_not_reviewed = Books.query.filter(~Books.id.in_(subquery)).all()
+        if books_not_reviewed:
+            return render_template(
+                "add-review.html", books=books_not_reviewed)
+
+
+@app.route("/add-review", methods=["GET", "POST"])
+def addReview():
+    # student adds new review
+    if request.method == "POST":
+        user = session["user"]
+        reviewer = Students.query.filter_by(email=user).first()
+        review = Reviews(
                 reviewer=reviewer.id,
                 title=request.form.get("title").lower(),
                 rating=request.form.get(
@@ -195,13 +215,28 @@ def addReview():
                 review=request.form.get("review"),
                 book=request.form.get("book"))
 
-            db.session.add(review)
-            db.session.commit()
-            # every time review is published, increment student's books_read
-            reviewer.books_read = reviewer.books_read + 1
-            db.session.commit()
+        db.session.add(review)
+        db.session.commit()
+        # every time review is published, increment student's books_read
+        reviewer.books_read = reviewer.books_read + 1
+        db.session.commit()
 
-            flash("Your review has been published.")
-            return redirect(url_for("account", user=session["user"]))
+        flash("Your review has been published.")
+        return redirect(url_for("account", user=session["user"]))
 
     return render_template("add-review.html")
+
+
+@app.route("/account/<user>,<student>")
+def deleteStudent(user, student):
+    del_student = Students.query.filter_by(id=student).first()
+    db.session.delete(del_student)
+    db.session.commit()
+    flash("Account deleted successfully.")
+    user = session["user"]
+    teacher_search = Teachers.query.filter_by(email=user).first()
+    if teacher_search:
+        students = Students.query.filter_by(
+                    teacher=teacher_search.id).all()
+    return redirect(url_for("account", user=session["user"],
+                    account_details=teacher_search, students=students))

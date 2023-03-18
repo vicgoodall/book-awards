@@ -29,16 +29,29 @@
           <!-- User will be able to view student accounts assigned to them and create more. -->
             {% if students %}
               {% for student in students: %}
-              <p>{{ student.first_name.capitalize() + " " + student.surname_initial.capitalize() }}</p>
+              <p>{{ student.first_name.capitalize() + " " + student.surname_initial.capitalize() }}
+              <a class="waves-effect waves-light btn modal-trigger right" href="#modal1{{ student.id }}">Delete</a> 
+              <a class="waves-effect waves-light btn-small right">Update</a>
+              </p>
+              <br>
+              <div id="modal1{{student.id}}" class="modal">
+                <div class="modal-content">
+                  <h4>Delete Student</h4>
+                  <p>Are you sure you want to delete this student's account? All associated reviews will also be permanently deleted.</p>
+                </div>
+                <div class="modal-footer">
+                  <a href="{{ url_for('deleteStudent', user=session['user'], student=student.id) }}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
+                  <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                </div>
+              </div>
               {% endfor %}
-            {% endif %}
+              {% endif %}
         </div>
         <div class="card-action account">
           <a href="{{  url_for('registerStudent', user=session['user'])  }}" class="black-text">Create new student account</a>
         </div>
       </div>
     </div>
-
     <div class="col s12 m4">
       <div class="card basic-template">
         <div class="card-content white-text">
@@ -75,7 +88,11 @@
         <div class="card-content white-text">
           <span class="card-title account">My Reviews</span>
           <!-- User can view reviews they have created and edit/delete -->
-          <p>Can see options about reviews they have already created.</p>
+          {% if reviews %} 
+            {% for review in reviews %} 
+          <p>{{ review.title.title() + ":" }} {{ review.rating }} star(s)</p>
+            {% endfor %} 
+          {% endif %}
         </div>
         <div class="card-action account">
           <a href="#" class="black-text">View reviews</a>
@@ -87,11 +104,18 @@
       <div class="card basic-template">
         <div class="card-content white-text">
           <span class="card-title account">Books to Review</span>
-          <!-- User can see which books are still available for them to review -->
-          <p>Show any books with links to review</p>
+          <!-- User can see if they still have books to review -->
+          {% if account_details.books_read == 6: %} 
+          <p>Well done! You have read and reviewed every nominated book.</p>
+          <p>Your teacher will be able to help you get your certificate of participation and book token.</p>
+          {% else: %}
+          <p>You still have {{ 6-account_details.books_read }} book(s) left to review.</p>
+          {% endif %}
         </div>
         <div class="card-action account">
+          {% if account_details.books_read < 6: %}
           <a href="{{  url_for('addReview')  }}" class="black-text">Add reviews</a>
+          {% endif %}
         </div>
       </div>
     </div>
