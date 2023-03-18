@@ -10,14 +10,14 @@
       <div class="card basic-template">
         <div class="card-content white-text">
           <span class="card-title account">My Details</span>
-          <!-- User can view their account details here -->
+          <!-- User can view their account details here --> 
           <p>
             Name: {{  account_details.prefix.capitalize() + " " + account_details.surname.capitalize()  }}</p>
-          <p>School: {{ account_details.school.capitalize() }}</p>
+          <p>School: {{ account_details.school.title() }}</p>
           <p>Email: {{ account_details.email }}</p>
         </div>
         <div class="card-action account">
-          <a href="#" class="black-text">Edit</a>
+          <a href="{{ url_for('updateTeacher', user=session['user']) }}" class="black-text">Edit</a> 
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
               {% for student in students: %}
               <p>{{ student.first_name.capitalize() + " " + student.surname_initial.capitalize() }}
               <a class="waves-effect waves-light btn modal-trigger right" href="#modal1{{ student.id }}">Delete</a> 
-              <a class="waves-effect waves-light btn-small right">Update</a>
+              <a class="waves-effect waves-light btn-small right" href="{{ url_for('updateStudent', student_id=student.id) }}">Update</a>
               </p>
               <br>
               <div id="modal1{{student.id}}" class="modal">
@@ -45,7 +45,7 @@
                 </div>
               </div>
               {% endfor %}
-              {% endif %}
+            {% endif %}
         </div>
         <div class="card-action account">
           <a href="{{  url_for('registerStudent', user=session['user'])  }}" class="black-text">Create new student account</a>
@@ -57,7 +57,11 @@
         <div class="card-content white-text">
           <span class="card-title account">Students' Reviews</span>
           <!-- User can navigate from here to their students' reviews in order to check them and delete if necessary -->
-          <p>Return to later to either delete or create link to review mgmt.</p>
+          {% if students %}
+              {% for student in students: %}
+          <p>{{ student.first_name.capitalize() + " " + student.surname_initial.capitalize() + ": " + student.books_read|string }}</p>
+              {% endfor %}
+          {% endif %}
         </div>
         <div class="card-action account">
           <a href="#" class="black-text">View reviews</a>

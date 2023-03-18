@@ -1,15 +1,16 @@
 {% extends "base.html" %} 
 {% block content %} 
-<h3 class="center-align">Update Student</h3>
+
+<h3 class="center-align">Update Details</h3>
 
 <div class="row">
-    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('updateStudent', student_id=student.id)  }}">
-        <div class="card-panel">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('updateTeacher', user=session['user'])  }}">
+        <div class="card-panel" action="{{ url_for('showTeacher', user=session['user'])  }}">
             <!-- username field -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-user-plus prefix"></i>
-                    <input id="email" name="email" type="text" class="validate" value="{{ student.email }}">
+                    <input id="email" name="email" type="text" class="validate" value="{{ teacher.email }}">
                     <label for="email">Email</label>
                 </div>
             </div>
@@ -17,16 +18,16 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-user-plus prefix"></i>
-                    <input id="first_name" name="first_name" type="text" class="validate" value="{{ student.first_name.capitalize() }}">
-                    <label for="first_name">First Name</label>
+                    <input id="prefix" name="prefix" type="text" class="validate" value="{{ teacher.prefix.capitalize() }}">
+                    <label for="prefix">Prefix</label>
                 </div>
             </div>   
             <!-- surname field -->
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-user-plus prefix"></i>
-                    <input id="surname_initial" name="surname_initial" type="text" class="validate" value="{{ student.surname_initial.capitalize() }}">
-                    <label for="surname_initial">Surname Initial</label>
+                    <input id="surname" name="surname" type="text" class="validate" value="{{ teacher.surname.capitalize() }}">
+                    <label for="surname">Surname</label>
                 </div>
             </div>           
             <!-- register button -->
@@ -38,4 +39,5 @@
         </div>
     </form>
 </div>
+
 {% endblock %} 

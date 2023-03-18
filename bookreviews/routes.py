@@ -25,8 +25,8 @@ def register():
     if "user" in session:
         # if user is already logged in, flash message and redirect to account
         flash("You are already registered.")
-    return redirect(url_for("account", user=session["user"]))
-    if request.method == "POST":
+        return redirect(url_for("account", user=session["user"]))
+    elif request.method == "POST":
         user = request.form["email"]
         # first query to check if user already exists
         found_user = Teachers.query.filter_by(email=user).first()
@@ -240,3 +240,44 @@ def deleteStudent(user, student):
                     teacher=teacher_search.id).all()
     return redirect(url_for("account", user=session["user"],
                     account_details=teacher_search, students=students))
+
+
+@app.route("/update-student/<student_id>", methods=["GET", "POST"])
+def updateStudent(student_id):
+    student = Students.query.filter_by(id=student_id).first()
+    if request.method == "POST":
+        student.email = request.form.get("email").lower()
+        student.first_name = request.form.get("first_name").lower()
+        student.surname_initial = request.form.get(
+                        "surname_initial").lower()
+        db.session.commit()
+        flash("Account updated successfully.")
+        user = session["user"]
+        teacher_search = Teachers.query.filter_by(email=user).first()
+        if teacher_search:
+            students = Students.query.filter_by(
+                        teacher=teacher_search.id).all()
+        return redirect(url_for("account", user=session["user"],
+                        account_details=teacher_search, students=students))
+    return render_template("update-student.html", student=student)
+
+
+@app.route("/update-teacher/<user>")
+def showTeacher(user):
+    user = session["user"]
+    teacher = Teachers.query.filter_by(email=user).first()
+    return render_template("update-teacher.html", teacher=teacher)
+
+
+@app.route("/update-teacher/<user>", methods=["GET", "POST"])
+def updateTeacher(user):
+    user = session["user"]
+    teacher = Teachers.query.filter_by(email=user).first()
+    if request.method == "POST":
+        teacher.email = request.form.get("email").lower()
+        teacher.prefix = request.form.get("prefix").lower()
+        teacher.surname = request.form.get("surname").lower()
+        db.session.commit()
+        flash("Account updated successfully.")
+        return render_template("update-teacher.html", teacher=teacher)
+    return render_template("update-teacher.html")
