@@ -81,6 +81,8 @@ class Reviews(db.Model):
     book = db.Column(
         db.Integer, db.ForeignKey(
             "books.id", ondelete="CASCADE"), nullable=False)
+    author = db.Column(db.String(20), nullable=False)
+    author_initial = db.Column(db.String(2), nullable=False)
 
     def __repr__(self):
         # __repr__ to represent itself in the form of a string

@@ -1,0 +1,50 @@
+{% extends "base.html" %} 
+{% block content %} 
+
+<h3 class="center-align">Edit Review</h3>
+
+<div class="row">
+    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('updateReview', review=review.id)  }}">
+        <div class="card-panel" action="{{ url_for('showReview', review=review.id)  }}">
+            <!-- title field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-book prefix"></i>
+                    <input id="title" name="title" type="text" class="validate" value="{{ review.title.title() }}">
+                    <label for="title">Title</label>
+                </div>
+            </div>
+            <!-- rating field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-star prefix"></i>
+                    <select id="rating" name="rating" class="validate" required>
+                      <option value="{{ review.rating }}" selected>{{ review.rating }}</option>
+                      <option value="1">1 star</option>
+                      <option value="2">2 stars</option>
+                      <option value="3">3 stars</option>
+                      <option value="4">4 stars</option>
+                      <option value="5">5 stars</option>
+                    </select>
+                    <label>Rating (1-5 stars)</label>
+                  </div>
+            </div>   
+            <!-- review field -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-pen-nib prefix"></i>
+                    <input id="review" name="review" type="text" class="validate" value="{{ review.review }}">
+                    <label for="review">Review</label>
+                </div>
+            </div>           
+            <!-- submit button -->
+            <div class="row">
+                <button type="submit" class="col s12 btn-large blue darken-4 text-shadow">
+                    Update <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %} 

@@ -213,7 +213,9 @@ def addReview():
                 rating=request.form.get(
                     "rating"),
                 review=request.form.get("review"),
-                book=request.form.get("book"))
+                book=request.form.get("book"),
+                author=reviewer.first_name,
+                author_initial=reviewer.surname_initial)
 
         db.session.add(review)
         db.session.commit()
@@ -308,3 +310,33 @@ def deleteReview(user, review):
         review_search = Reviews.query.filter_by(reviewer=student)
     return render_template("my-reviews.html", user=session["user"],
                            reviews=review_search)
+
+
+@app.route("/update-review/<review>")
+def showReview(review):
+    review = Reviews.query.filter_by(id=review).first()
+    return render_template("update-review.html", review=review)
+
+
+@app.route("/update-review/<review>", methods=["GET", "POST"])
+def updateReview(review):
+    review = Reviews.query.filter_by(id=review).first()
+    if request.method == "POST":
+        review.title = request.form.get("title").lower()
+        review.rating = request.form.get("rating").lower()
+        review.review = request.form.get("review")
+        db.session.commit()
+        flash("Review updated successfully.")
+        user = session['user']
+        return redirect(url_for("myReviews", user=session["user"]))
+    return render_template("update-review.html")
+
+
+@app.route("/view-reviews/<user>")
+def showReviews(user):
+    user = session['user']
+    teacher = Teachers.query.filter_by(email=user).first()
+    students = Students.query.filter_by(teacher=teacher.id).all()
+    for student in students:
+        reviews = Reviews.query.filter_by(reviewer=student.id).all()
+    return render_template("view-reviews.html", reviews=reviews)

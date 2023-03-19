@@ -15,6 +15,7 @@
       </div>
       <div class="card-action account">
         <a class="black-text modal-trigger" href="#modal2{{ review.id }}">Delete</a> 
+        <a class="black-text" href="{{ url_for('updateReview', review=review.id )}}">Edit</a> 
       </div>
     </div>
   </div>
