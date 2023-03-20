@@ -334,9 +334,11 @@ def updateReview(review):
 
 @app.route("/view-reviews/<user>")
 def showReviews(user):
+    # query to find all reviews written by the teacher's students
     user = session['user']
     teacher = Teachers.query.filter_by(email=user).first()
-    students = Students.query.filter_by(teacher=teacher.id).all()
-    for student in students:
-        reviews = Reviews.query.filter_by(reviewer=student.id).all()
-    return render_template("view-reviews.html", reviews=reviews)
+    subquery = db.session.query(Students.id).filter(
+            Students.teacher == teacher.id).subquery()
+    students_reviews = Reviews.query.filter(
+        Reviews.reviewer.in_(subquery)).all()
+    return render_template("view-reviews.html", reviews=students_reviews)

@@ -3,16 +3,16 @@
 <h3> My Students' Reviews </h3>
 
 <div class="row">
-{% if reviews %} 
-    {% for review in reviews %} 
+{% if reviews %}
+{% for review in reviews: %} 
 <div class="col s12 m4">
     <div class="card basic-template">
       <div class="card-content white-text">
         <span class="card-title account">{{ review.title.title() }}</span>
         <!-- User can view reviews they have created and edit/delete -->
-        <p>{{ review.author.capitalize() + " " + review.author_initial.capitalize() }}</p>
-        <p>{{ review.rating  }} stars</p> 
-        <p>{{ review.review }}</p>
+        <p> {{ review.author.capitalize() + " " + review.author_initial.capitalize() }}</p>
+        <p> {{ review.rating }} stars </p>
+        <p> {{ review.review }}</p>
       </div>
       <div class="card-action account">
         <a class="black-text modal-trigger" href="#">Delete</a> 
@@ -20,6 +20,19 @@
     </div>
   </div>
   {% endfor %} 
+  {% else %}
+  <div class="col s12 m4 offset-m4">
+  <div class="card basic-template">
+    <div class="card-content white-text">
+      <span class="card-title account">No reviews published</span>
+      <!-- User can view reviews they have created and edit/delete -->
+      <p> Reviews published by your registered students will be visible here when they're available.</p>
+    </div>
+    <div class="card-action account">
+      <a class="black-text modal-trigger" href="#">Delete</a> 
+    </div>
+  </div>
+  </div>
   {% endif %}
   <div class="row">
 {% endblock %}
