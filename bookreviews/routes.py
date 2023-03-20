@@ -342,3 +342,16 @@ def showReviews(user):
     students_reviews = Reviews.query.filter(
         Reviews.reviewer.in_(subquery)).all()
     return render_template("view-reviews.html", reviews=students_reviews)
+
+
+@app.route("/view-reviews/<user><student>,<review>")
+def deleteStudentReview(user, student, review):
+    user = session['user']
+    student_search = Students.query.filter_by(id=student).first()
+    review = Reviews.query.filter_by(id=review).first()
+    db.session.delete(review)
+    # reduce user's book_read count by 1 when deleting review
+    student_search.books_read = student_search.books_read - 1
+    db.session.commit()
+    flash("Review deleted successfully.")
+    return redirect(url_for('showReviews', user=session["user"]))
