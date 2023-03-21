@@ -5,7 +5,7 @@
 <div class="row">
 {% if reviews %} 
     {% for review in reviews %} 
-<div class="col s12 m4">
+<div class="col s12 m6">
     <div class="card basic-template">
       <div class="card-content white-text">
         <span class="card-title account">{{ review.title.title() }}</span>
@@ -31,5 +31,4 @@
   </div>
   {% endfor %} 
   {% endif %}
-  <div class="row">
 {% endblock %}
