@@ -66,6 +66,7 @@ def populateDb():
     db.session.commit()
 """
 
+
 @app.route("/")
 def home():
     books = list(Books.query.order_by(Books.id).all())
