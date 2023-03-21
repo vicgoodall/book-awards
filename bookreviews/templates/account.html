@@ -12,7 +12,7 @@
           <span class="card-title account">My Details</span>
           <!-- User can view their account details here --> 
           <p>
-            Name: {{  account_details.prefix.capitalize() + " " + account_details.surname.capitalize()  }}</p>
+            Name: {{  account_details.prefix.capitalize() + " " + account_details.surname.upper()  }}</p>
           <p>School: {{ account_details.school.title() }}</p>
           <p>Email: {{ account_details.email }}</p>
         </div>
