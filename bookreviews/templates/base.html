@@ -21,14 +21,14 @@
                 <a href="#!" class="brand-logo">The Tortoise Book Prize 2023</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
                 <ul class="right hide-on-med-and-down">
-                  <li><a href="#" class="yellow-text text-lighten-4">Home</a></li> 
+                  <li><a href="{{ url_for('home') }}" class="yellow-text text-lighten-4">Home</a></li> 
                   <li><a href="{{ url_for('login') }}" class="yellow-text text-lighten-4">Log In</a></li> 
                   <!-- only show Account section if user is logged in -->
                   {% if "user" in session: %}
                   <li><a href="{{ url_for('account', user=session['user']) }}" class="yellow-text text-lighten-4">Account</a></li>
                   {% endif %}
-                  <li><a href="#" class="yellow-text text-lighten-4">About</a></li>
-                  <li><a href="#" class="yellow-text text-lighten-4">Reviews</a></li>
+                  <li><a href="{{ url_for('about') }}" class="yellow-text text-lighten-4">About</a></li>
+                  <li><a href="{{ url_for('reviews') }}" class="yellow-text text-lighten-4">Reviews</a></li>
                   <li><a href="{{ url_for('logout') }}" class="yellow-text text-lighten-4">Log Out</a></li>
                   <li><a href="{{ url_for('register') }}" class="yellow-text text-lighten-4">Register</a></li>
                 </ul>
@@ -37,13 +37,13 @@
             
         <!-- mobile sidenav -->
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="#" class="yellow-text text-lighten-4">Home</a></li> 
+            <li><a href="{{ url_for('home') }}" class="yellow-text text-lighten-4">Home</a></li> 
             <li><a href="{{ url_for('login') }}" class="yellow-text text-lighten-4">Log In</a></li> 
             {% if "user" in session: %}
             <li><a href="{{ url_for('account', user=session['user']) }}" class="text-yellow text-lighten-4">Account</a></li>
             {% endif %}
-            <li><a href="#" class="yellow-text text-lighten-4">About</a></li>
-            <li><a href="#" class="yellow-text text-lighten-4">Reviews</a></li>
+            <li><a href="{{ url_for('about') }}" class="yellow-text text-lighten-4">About</a></li>
+            <li><a href="{{ url_for('reviews') }}" class="yellow-text text-lighten-4">Reviews</a></li>
             <li><a href="{{ url_for('logout') }}" class="yellow-text text-lighten-4">Log Out</a></li>
             <li><a href="{{ url_for('register') }}" class="yellow-text text-lighten-4">Register</a></li>
         </ul>
@@ -64,6 +64,38 @@
 
     <main class="container"></main>
     {% block content %}
+    <h3> Welcome to The Tortoise Book Prize 2023</h3>
+    <h3> Review Scheme</h3>
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            <div class="card basic-template">
+              <div class="card-content white-text">
+                <span class="card-title account"></span>
+                <p class="intro"> We are thrilled to announce this year's nominees:
+                    <br>
+                    {% for book in books: %} 
+                    <i class="fas fa-book"></i>
+                    {{ book.title.title() }}, {{ book.author_first.capitalize() }} {{ book.author_surname.title() }}
+                    <br>
+                    {% endfor %} 
+                </p>
+              </div>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m1">
+                <img src="bookreviews/static/assets/images/redskyinthemorning.jpeg">
+            </div>
+            <div class="col s12 m1">
+                <div class="card basic-template">
+                  <div class="card-content white-text">
+                    <img src="">
+                  </div>
+                </div>
+            </div>
+        </div>
+
     {% endblock %}
     </main>
 

@@ -7,7 +7,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 @app.route("/")
 def home():
-    return render_template("base.html")
+    books = list(Books.query.order_by(Books.id).all())
+    return render_template("base.html", books=books)
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 
 @app.route("/login")
@@ -355,3 +361,9 @@ def deleteStudentReview(user, student, review):
     db.session.commit()
     flash("Review deleted successfully.")
     return redirect(url_for('showReviews', user=session["user"]))
+
+
+@app.route("/reviews")
+def reviews():
+    reviews = list(Reviews.query.order_by(Reviews.id).all())
+    return render_template("reviews.html", reviews=reviews)
