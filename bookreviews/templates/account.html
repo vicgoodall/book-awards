@@ -94,8 +94,7 @@
           <!-- User can view reviews they have created and edit/delete -->
           {% if reviews %} 
             {% for review in reviews %} 
-            <i class="fas fa-book"></i>
-          <p>{{ review.title.title() + ":" }} {{ review.rating }} star(s)</p>
+          <p><i class="fas fa-book"></i>{{ review.title.title() + ":" }} {{ review.rating }} star(s)</p>
             {% endfor %} 
           {% endif %}
         </div>
