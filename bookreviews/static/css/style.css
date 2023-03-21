@@ -19,6 +19,7 @@ h3 {
     color: #00C89C;
     text-align: center;
     font-family: 'Playfair Display', sans-serif;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
 }
 
 
@@ -53,3 +54,24 @@ p {
     padding-left: 20%;
 }
 
+/* Three image containers (use 25% for four, and 50% for two, etc) */
+.image-column {
+    float: left;
+    width: 16.66%;
+    padding: 5px;
+    padding-left: 3%;
+  }
+  
+  /* Clear floats after image containers */
+  .image-row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  img {
+    float: left;
+    height: 200px;
+    object-fit: cover;
+    border: 5px solid #FFFADE;
+}

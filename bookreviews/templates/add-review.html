@@ -19,7 +19,7 @@
             <!-- review title field -->
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="title" name="title" type="text" class="validate">
+                    <input id="title" name="title" type="text" class="validate" maxlength="120" data-length="120">
                     <label for="title">Review Title</label>
                 </div>
             </div>   
@@ -42,7 +42,7 @@
                 <form class="col s12">
                   <div class="row">
                     <div class="input-field col s12">
-                      <textarea id="review"  name="review" class="validate" requiredclass="materialize-textarea"></textarea>
+                      <textarea id="review"  name="review" class="validate" required class="materialize-textarea" maxlength="5000"  data-length="5000"></textarea>
                       <label for="review">Review</label>
                     </div>
                   </div>

@@ -7,6 +7,7 @@ $(document).ready(function () {
   $(".collapsible").collapsible();
   $("select").formSelect();
   $('.modal').modal();
+  $('input#title, textarea#review').characterCounter();
   });
 
   validateMaterializeSelect();
