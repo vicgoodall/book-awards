@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import Session
 
 
+""" #set up code to add roles and books into db
 @app.before_first_request
 def populateDb():
     teacher_role = Roles(
@@ -63,7 +64,7 @@ def populateDb():
     db.session.add(live_now)
     db.session.add(red_sky)
     db.session.commit()
-
+"""
 
 @app.route("/")
 def home():
