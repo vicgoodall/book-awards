@@ -12,7 +12,7 @@
           <span class="card-title account">My Details</span>
           <!-- User can view their account details here --> 
           <p>
-            Name: {{  account_details.prefix.capitalize() + " " + account_details.surname.upper()  }}</p>
+            Name: {{  account_details.prefix.capitalize() + " " + account_details.surname.capitalize()  }}</p>
           <p>School: {{ account_details.school.title() }}</p>
           <p>Email: {{ account_details.email }}</p>
         </div>
@@ -29,7 +29,7 @@
           <!-- User will be able to view student accounts assigned to them and create more. -->
             {% if students %}
               {% for student in students: %}
-              <p>{{ student.first_name.capitalize() + " " + student.surname_initial.capitalize() }}
+              <p>{{ student.first_name.capitalize() + " " + student.surname_initial.upper() }}
               <a class="waves-effect waves-light btn modal-trigger right" href="#modal1{{ student.id }}">Delete</a> 
               <a class="waves-effect waves-light btn-small right" href="{{ url_for('updateStudent', student_id=student.id) }}">Update</a>
               </p>
@@ -59,7 +59,7 @@
           <!-- User can navigate from here to their students' reviews in order to check them and delete if necessary -->
           {% if students %}
               {% for student in students: %}
-          <p>{{ student.first_name.capitalize() + " " + student.surname_initial.capitalize() + ": " + student.books_read|string }}</p>
+          <p>{{ student.first_name.capitalize() + " " + student.surname_initial.upper() + ": " + student.books_read|string }}</p>
               {% endfor %}
           {% endif %}
         </div>
@@ -80,7 +80,7 @@
           <span class="card-title account">My Details</span>
           <!-- User can view their account details here -->
           <p>
-            Name: {{  account_details.first_name.capitalize() + " " + account_details.surname_initial.capitalize()  }}</p>
+            Name: {{  account_details.first_name.capitalize() + " " + account_details.surname_initial.upper()  }}</p>
           <p>School: {{ account_details.school.title() }}</p>
           <p>Email: {{ account_details.email }}</p>
         </div>
