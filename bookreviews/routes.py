@@ -1,8 +1,68 @@
 from flask import (Flask, render_template, session, url_for, redirect,
                    request, flash)
 from bookreviews import app, db
-from bookreviews.models import Books, Roles, Teachers, Students, Reviews
+from bookreviews.models import (Books, Roles, Teachers, Students,
+                                Reviews, Admins)
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.orm import Session
+
+
+@app.before_first_request
+def populateDb():
+    teacher_role = Roles(
+        id=1,
+        role_name="teacher"
+    )
+    student_role = Roles(
+        id=2,
+        role_name="student"
+    )
+
+    river_sea = Books(
+        id=1,
+        title="journey to the river sea",
+        author_first="eva",
+        author_surname="ibbotson"
+    )
+    gathering = Books(
+        id=2,
+        title="a gathering light",
+        author_first="jennifer",
+        author_surname="donnelly"
+    )
+    peaceful = Books(
+        id=3,
+        title="private peaceful",
+        author_first="michael",
+        author_surname="morpurgo"
+    )
+    bloomability = Books(
+        id=4,
+        title="bloomability",
+        author_first="sharon",
+        author_surname="creech",
+    )
+    live_now = Books(
+        id=5,
+        title="how i live now",
+        author_first="meg",
+        author_surname="rosoff"
+    )
+    red_sky = Books(
+        id=6,
+        title="red sky in the morning",
+        author_first="elizabeth",
+        author_surname="laird"
+    )
+    db.session.add(teacher_role)
+    db.session.add(student_role)
+    db.session.add(river_sea)
+    db.session.add(gathering)
+    db.session.add(peaceful)
+    db.session.add(bloomability)
+    db.session.add(live_now)
+    db.session.add(red_sky)
+    db.session.commit()
 
 
 @app.route("/")
@@ -367,53 +427,3 @@ def deleteStudentReview(user, student, review):
 def reviews():
     reviews = list(Reviews.query.order_by(Reviews.id).all())
     return render_template("reviews.html", reviews=reviews)
-
-
-@app.route("/admin", methods=["GET", "POST"])
-def adminRegister():
-    if "user" in session:
-        # if user is already logged in, flash message and redirect to account
-        flash("You are already registered.")
-        return redirect(url_for("account", user=session["user"]))
-    elif request.method == "POST":
-        user = Admins(
-                email=request.form.get("email").lower(),
-                password=generate_password_hash(request.form.get("password")))
-        db.session.add(user)
-        db.session.commit()
-
-        # put the new user into 'session' cookie
-        session["user"] = request.form.get("email").lower()
-        flash("Registration Successful")
-        return redirect(url_for("admin.html", user=session["user"]))
-
-    return render_template("admin-register.html")
-
-
-@app.route("/admin/<user>", methods=["GET", "POST"])
-def admin(user):
-    roles = list(Roles.query.order_by(Roles.id).all())
-    books = list(Books.query.order_by(Books.id).all())
-    return render_template("admin.html", roles=roles, books=books)
-
-
-@app.route("/admin/<user>", methods=["GET", "POST"])
-def addRole():
-    if request.method == "POST":
-        role = Roles(
-            role_name=request.form.get("role_name").lower())
-        db.session.add(role)
-        db.session.commit()
-    return redirect(url_for('admin', user=session['user']))
-
-
-@app.route("/admin/<user>", methods=["GET", "POST"])
-def addBooks():
-    if request.method == "POST":
-        book = Books(
-                title=request.form.get("title").lower(),
-                author_first=request.form.get("author_first").lower(),
-                author_surname=request.form.get("author_surname").lower())
-        db.session.add(book)
-        db.session.commit()
-    return redirect(url_for('admin', user=session['user']))
