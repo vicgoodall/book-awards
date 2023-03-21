@@ -367,3 +367,53 @@ def deleteStudentReview(user, student, review):
 def reviews():
     reviews = list(Reviews.query.order_by(Reviews.id).all())
     return render_template("reviews.html", reviews=reviews)
+
+
+@app.route("/admin", methods=["GET", "POST"])
+def adminRegister():
+    if "user" in session:
+        # if user is already logged in, flash message and redirect to account
+        flash("You are already registered.")
+        return redirect(url_for("account", user=session["user"]))
+    elif request.method == "POST":
+        user = Admins(
+                email=request.form.get("email").lower(),
+                password=generate_password_hash(request.form.get("password")))
+        db.session.add(user)
+        db.session.commit()
+
+        # put the new user into 'session' cookie
+        session["user"] = request.form.get("email").lower()
+        flash("Registration Successful")
+        return redirect(url_for("admin.html", user=session["user"]))
+
+    return render_template("admin-register.html")
+
+
+@app.route("/admin/<user>", methods=["GET", "POST"])
+def admin(user):
+    roles = list(Roles.query.order_by(Roles.id).all())
+    books = list(Books.query.order_by(Books.id).all())
+    return render_template("admin.html", roles=roles, books=books)
+
+
+@app.route("/admin/<user>", methods=["GET", "POST"])
+def addRole():
+    if request.method == "POST":
+        role = Roles(
+            role_name=request.form.get("role_name").lower())
+        db.session.add(role)
+        db.session.commit()
+    return redirect(url_for('admin', user=session['user']))
+
+
+@app.route("/admin/<user>", methods=["GET", "POST"])
+def addBooks():
+    if request.method == "POST":
+        book = Books(
+                title=request.form.get("title").lower(),
+                author_first=request.form.get("author_first").lower(),
+                author_surname=request.form.get("author_surname").lower())
+        db.session.add(book)
+        db.session.commit()
+    return redirect(url_for('admin', user=session['user']))

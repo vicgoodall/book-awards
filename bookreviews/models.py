@@ -87,3 +87,13 @@ class Reviews(db.Model):
     def __repr__(self):
         # __repr__ to represent itself in the form of a string
         return self.title
+
+
+class Admins(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(200), nullable=False)
+
+    def __repr__(self):
+        # __repr__ to represent itself in the form of a string
+        return self.email
