@@ -35,7 +35,8 @@ Teacher's actions are very different to the students i.e. students will write re
 Create a role concept within the database, where the actions page (i.e. Account) is determined by the role id assigned to each user (Teacher role or Student role).
 
 ## Database Design
-Based on the above initial designs, the database was designed with the following relationships:
+Based on the above initial designs, the database was designed with the following relationships using Figma:
+![database initial design](../book-awards/bookreviews/static/assets/design-images/Tortoise%20Prize%20DB%20Design.png)
 - Teachers are linked to each of their students by their primary key
 - Students are linked to each of their reviews by their primary key
 - Students and Teachers both have roles assigned by linking to the Role's primary key
@@ -77,6 +78,7 @@ It is also noted that the user's Account screen, where they complete the majorit
 ## Colour Scheme
 - Colour scheme was determined by the academic setting of the website's users
 - The website is text heavy, and often pages are loaded with information (reviews, account actions). Decision made to keep colour scheme simplistic with a primary colour for background, a neutral for legibility of the text, and an accent colour for occasional colour pops. 
+![colour scheme](../book-awards/bookreviews/static/assets/design-images/Tortoise%20Prize%20colour%20scheme.png)
 - As the website is primarily intended for 11-16 year old students, the starting point was a dark plue initially inspired by 'Oxford blue', but made more fun by selecting something a little brighter and lighter.
 - Once selected on ColorSpace, the application showed various options, with one providing a cream for text backgrounds and a fun turquoise green as an accent that reflects the youthful intended audience. 
 - The lilac shade was decided against for the sake of simplicity. 
@@ -147,3 +149,61 @@ Students can:
 ### Update Review (Student)
 #### update-review.html
 - Students can amend a review they have already published
+
+## CRUD Functionality
+### CREATE
+- Teachers can create their own account
+- Teachers can create student accounts associated to their own account
+- Students can create their own reviews
+
+### READ
+- Any website visitor can view the nominated books
+- Any website visitor can view the published reviews
+- Teachers can view their own account details
+- Teachers can view their students' details
+- Teachers can view their students' reviews
+- Students can view their account details
+- Students can view their own reviews
+
+### UPDATE
+- Teachers can update their own account details
+- Teachers can update their associated stuidents' account details
+- Students can update their own reviews
+
+### DELETE
+- Teachers can delete an associated student's account, which will also delete that student's reviews
+- Teachers can delete an associated student's reviews
+- Students can delete their own reviews
+
+## Backend Frameworks
+- Python was used as the backend programming language.
+- The Flask framework was selected as an ideal way to implement Python as it enables use of Jinja to interact with the frontend, and Werkzeug to facilitate user authentication. 
+- As a PostgreSQL database is being used, SQL Alchemy was selected as the best toolkit with which to compose queries.
+- Thus the Flask-SQLAlchemy extension is used to combine both resources
+
+# Features
+## Home Screen Display of Books
+![home screen](../book-awards/bookreviews/static/assets/design-images/Home%20screen.png)
+- The books were entered into the application on first access (the code is available to view, commented out, for information only in the routes file). This prevents the user being able to adapt the table in any way, as this particular table will not require amending.
+- They are listed on the home page using Jinja as an announcement of the nominees to commence this year's reviews.
+- A row of images, the cover of each book, is visible below the announcement card. 
+- A tutorial page at [w3Schools](https://www.w3schools.com/howto/howto_css_images_side_by_side.asp) enabled this banner to be created, by modifying the code provided. 
+- A post on [Stack Overflow](https://stackoverflow.com/questions/19414856/how-can-i-make-all-images-of-different-height-and-width-the-same-via-css) provided code which when modified, was able to create consistency in height  between the six images.
+
+## Register as Teacher
+![register as teacher screen](../book-awards/bookreviews/static/assets/design-images/Register%20teacher.png)
+- Teachers enter their details into the form, which is then used to create a new row in the Teachers table.
+- The primary key, id, is the unique value used in the backend to associate teachers to students, in a one to many relationship. 
+- This could be built upon in future, to be able to delete teachers fairly easily, as it would cascade down to delete their students' accounts and in turn their reviews, as currently composed within the model. 
+- The user's email is used as their login id, and therefore is also unique. The system prohibits another user being created with the same email address. 
+
+## Create a Student account
+![create student account screen](../book-awards/bookreviews/static/assets/design-images/Create%20Student%20Account.png)
+- Teachers create student accounts, which enables them to be associated easily
+- The student's details are purposely sparse to retain their privacy when publishing reviews
+- In order to enable a login, the password field is also here. This is admittedly poor practice, but as this project isn't an exercise in user authentication, it was determined as the simplest way to get the students logged in. It would be straightforward to add a password change option within a student's account, or alternatively look into OTP options. (Alternatively, students could participate in creating their own accounts, and enter their own password).
+- When the completed form is submitted, in the backend a new row is added to the Students table. By default the row's teacher and school values are filled by taking them from the Teacher's ID and School values.
+
+
+
+

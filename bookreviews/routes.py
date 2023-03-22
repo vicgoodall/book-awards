@@ -165,7 +165,8 @@ def registerStudent(user):
             found_student = Students.query.filter_by(email=student).first()
             if found_student:
                 flash("User already exists with this email.")
-                return redirect(url_for("registerStudent"))
+                return redirect(url_for(
+                    "registerStudent", user=session['user']))
             # if no email matches, register new user by adding to db
             else:
                 user = session["user"]
