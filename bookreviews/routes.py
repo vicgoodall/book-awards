@@ -324,7 +324,7 @@ def deleteStudent(user, student):
 def updateStudent(student_id):
     student = Students.query.filter_by(id=student_id).first()
     if request.method == "POST":
-        # take fields from form and update student 
+        # take fields from form and update student
         student.email = request.form.get("email").lower()
         student.first_name = request.form.get("first_name").lower()
         student.surname_initial = request.form.get(
@@ -378,6 +378,7 @@ def myReviews(user):
 
 
 @app.route("/my-reviews/<user>,<review>")
+# student can delete their own review
 def deleteReview(user, review):
     student_search = Students.query.filter_by(email=user).first()
     review = Reviews.query.filter_by(id=review).first()
@@ -393,6 +394,7 @@ def deleteReview(user, review):
                            reviews=review_search)
 
 
+# user can edit their own review
 @app.route("/update-review/<review>")
 def showReview(review):
     review = Reviews.query.filter_by(id=review).first()
