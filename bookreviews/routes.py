@@ -5,6 +5,7 @@ from bookreviews.models import (Books, Roles, Teachers, Students,
                                 Reviews, Admins)
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import Session
+from sqlalchemy.sql.expression import func
 
 
 """ #set up code to add roles and books into db
