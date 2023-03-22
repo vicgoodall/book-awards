@@ -33,19 +33,6 @@ div.card-panel {
     line-height: 2;
 }
 
-/*-------------------------------------------------------------- Materialize code to make footer sticky */
-
-body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-
-  main {
-    flex: 1 0 auto;
-  }
-
-
 /*-------------------------------------------------------------- Text, headings, icons */
 
 a.brand-logo {
@@ -216,5 +203,19 @@ p {
 .intro {
     padding-left: 15%;
 }
+
+/*-------------------------------------------------------------- Materialize code to make footer sticky */
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+
 
 }
