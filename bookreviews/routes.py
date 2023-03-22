@@ -324,6 +324,7 @@ def deleteStudent(user, student):
 def updateStudent(student_id):
     student = Students.query.filter_by(id=student_id).first()
     if request.method == "POST":
+        # take fields from form and update student 
         student.email = request.form.get("email").lower()
         student.first_name = request.form.get("first_name").lower()
         student.surname_initial = request.form.get(
@@ -331,6 +332,7 @@ def updateStudent(student_id):
         db.session.commit()
         flash("Account updated successfully.")
         user = session["user"]
+        # return user back to account page once complete
         teacher_search = Teachers.query.filter_by(email=user).first()
         if teacher_search:
             students = Students.query.filter_by(
@@ -341,6 +343,7 @@ def updateStudent(student_id):
 
 
 @app.route("/update-teacher/<user>")
+# ensure update page displays correct details
 def showTeacher(user):
     user = session["user"]
     teacher = Teachers.query.filter_by(email=user).first()
@@ -350,6 +353,7 @@ def showTeacher(user):
 @app.route("/update-teacher/<user>", methods=["GET", "POST"])
 def updateTeacher(user):
     user = session["user"]
+    # update teacher's details from fields within form
     teacher = Teachers.query.filter_by(email=user).first()
     if request.method == "POST":
         teacher.email = request.form.get("email").lower()
@@ -362,6 +366,7 @@ def updateTeacher(user):
 
 
 @app.route("/my-reviews/<user>")
+# return all reviews published by the student
 def myReviews(user):
     student_search = Students.query.filter_by(email=user).first()
     if student_search is not None:
