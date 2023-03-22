@@ -1,8 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700&family=Playfair+Display&display=swap');
 
+/*-------------------------------------------------------------- Background colour scheme */
+
 body {
     background-color: #171F77;
 }
+
+.nav-wrapper {
+    background-color: #171F77;
+}
+
+#mobile-demo {
+    background-color: #171F77;
+}
+
+/* Made the footer a little darker to differentiate from body */
+.page-footer {
+    background-color: #0a0d45;
+}
+
+/*-------------------------------------------------------------- Main body colour scheme */
+
+div.card-panel {
+    background-color: #FFFADE;
+}
+
+.basic-template {
+    background-color: #FFFADE;
+}
+
+.flashes h4 {
+    line-height: 2;
+}
+
+/*-------------------------------------------------------------- Text, headings, icons */
 
 a.brand-logo {
     color: #00C89C;
@@ -12,13 +43,6 @@ a.brand-logo {
     position: absolute;
 }
 
-.nav-wrapper {
-    background-color: #171F77;
-}
-
-.page-footer {
-    background-color: #0a0d45;
-}
 
 h3 {
     color: #00C89C;
@@ -32,21 +56,8 @@ h5 {
     font-family: 'Playfair Display', sans-serif;
 }
 
-
 i {
     color: #00C89C;
-}
-
-div.card-panel {
-    background-color: #FFFADE;
-}
-
-.flashes h4 {
-    line-height: 2;
-}
-
-.basic-template {
-    background-color: #FFFADE;
 }
 
 p {
@@ -63,6 +74,8 @@ p {
     font-size: large;
     padding-left: 20%;
 }
+
+/*-------------------------------------------------------------- Images */
 
 /* Row of six images */
 .image-column {
@@ -86,13 +99,13 @@ p {
     border: 5px solid #FFFADE;
 }
 
-#mobile-demo {
-    background-color: #171F77;
-}
+/*-------------------------------------------------------------- Buttons */
 
 .update {
     margin-right: 1%;
 }
+
+/*-------------------------------------------------------------- Media queries */
 
 @media(max-width: 992px) {
     a.brand-logo {

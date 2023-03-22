@@ -8,7 +8,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import func
 
 
-""" #set up code to add roles and books into db
+""" set up code to add roles and books into db
+
 @app.before_first_request
 def populateDb():
     teacher_role = Roles(
@@ -125,7 +126,8 @@ def register():
 
 @app.route("/account/<user>", methods=["GET", "POST"])
 def account(user):
-    # provide user details for the account page
+    # first check if user is a teacher
+    # if yes will send account the user details
     if "user" in session:
         teacher_search = Teachers.query.filter_by(email=user).first()
         if teacher_search:
@@ -134,6 +136,8 @@ def account(user):
             return render_template(
                 "account.html", user=session["user"],
                 account_details=teacher_search, students=students)
+        # then check if user is a student
+        # if yes will send account the user details
         else:
             student_search = Students.query.filter_by(email=user).first()
             if student_search is not None:
@@ -299,6 +303,8 @@ def addReview():
 
 
 @app.route("/account/<user>,<student>")
+# teacher has opted to delete student account by pressing button
+# and confirming within modal
 def deleteStudent(user, student):
     del_student = Students.query.filter_by(id=student).first()
     db.session.delete(del_student)
@@ -309,6 +315,7 @@ def deleteStudent(user, student):
     if teacher_search:
         students = Students.query.filter_by(
                     teacher=teacher_search.id).all()
+    # return user to their account page, student is removed
     return redirect(url_for("account", user=session["user"],
                     account_details=teacher_search, students=students))
 
