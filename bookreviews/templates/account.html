@@ -31,7 +31,7 @@
               {% for student in students: %}
               <p>{{ student.first_name.capitalize() + " " + student.surname_initial.upper() }}
               <a class="waves-effect waves-light btn modal-trigger right" href="#modal1{{ student.id }}">Delete</a> 
-              <a class="waves-effect waves-light btn-small right" href="{{ url_for('updateStudent', student_id=student.id) }}">Update</a>
+              <a class="waves-effect waves-light btn-small right update" href="{{ url_for('updateStudent', student_id=student.id) }}">Update</a>
               </p>
               <br>
               <div id="modal1{{student.id}}" class="modal">

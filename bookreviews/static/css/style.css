@@ -9,7 +9,7 @@ a.brand-logo {
     font-family: 'Nanum Myeongjo', sans-serif;
     text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
     margin-left: 3%;
-    position: fixed;
+    position: absolute;
 }
 
 .nav-wrapper {
@@ -79,6 +79,10 @@ p {
 
 #mobile-demo {
     background-color: #171F77;
+}
+
+.update {
+    padding-right: 1%;
 }
 
 @media(max-width: 992px) {
