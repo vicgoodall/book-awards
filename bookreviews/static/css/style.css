@@ -89,7 +89,7 @@ p {
     }
 
     h3 {
-        font-size: 18px;
+        font-size: 21px;
     }
 
     html, body {
@@ -120,5 +120,9 @@ p {
     object-fit: cover;
     border: 5px solid #FFFADE;
 }
+
+ .image-row {
+    margin-left: 0%;
+ }
 
 }
