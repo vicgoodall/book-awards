@@ -196,6 +196,7 @@ Students can:
 - The primary key, id, is the unique value used in the backend to associate teachers to students, in a one to many relationship. 
 - This could be built upon in future, to be able to delete teachers fairly easily, as it would cascade down to delete their students' accounts and in turn their reviews, as currently composed within the model. 
 - The user's email is used as their login id, and therefore is also unique. The system prohibits another user being created with the same email address. 
+- A Teacher record by default is given the value 1 in its Roles column. 
 
 ## Create a Student account
 ![create student account screen](../book-awards/bookreviews/static/assets/design-images/Create%20Student%20Account.png)
@@ -203,6 +204,26 @@ Students can:
 - The student's details are purposely sparse to retain their privacy when publishing reviews
 - In order to enable a login, the password field is also here. This is admittedly poor practice, but as this project isn't an exercise in user authentication, it was determined as the simplest way to get the students logged in. It would be straightforward to add a password change option within a student's account, or alternatively look into OTP options. (Alternatively, students could participate in creating their own accounts, and enter their own password).
 - When the completed form is submitted, in the backend a new row is added to the Students table. By default the row's teacher and school values are filled by taking them from the Teacher's ID and School values.
+- The Student's primary key, their ID, will enable them to be identified as the author of any reviews they publish. Their email, used to login, is also unique; as with the Teacher registration, the application will prevent another Student being created with the same email address.
+- The value books_read is also added to the newly created Student record and set to 0. This value is used to track how many reviews the Student has created.
+- A Student record by default is given the value 2 in its Roles column. 
+
+## Account page 
+![teacher account screen](../book-awards/bookreviews/static/assets/design-images/teacher%20account.png)
+![student account page](../book-awards/bookreviews/static/assets/design-images/student%20account.png)
+- The Role id within each user determines the view on this page: 1 = Teacher, 2 = Student.
+Teachers have the following features: 
+- They can view their own details
+- They can view each student and have the option to update or delete
+- They have a list of each student again, but this time it shows how many reviews each has written. They can navigate to read their students' reviews.
+While Students have these features:
+- They can see their own details but cannot edit (if they felt it needed updating, they could speak to their teacher)
+- They can see a list of reviews they have written so far and can navigate to view them in full
+- They can see how many books are left to review, made possible by the books_read value attached to each Student record. If they have reviewed all 6 books, an alternative message is shown informing them they are eligible to receive their certificate and book token
+- If they do have books left to review, they can navigate from here to create a new review (this button is unavailable if their books_read = 6)
+
+## Create Review 
+
 
 
 
