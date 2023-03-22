@@ -3,43 +3,43 @@
 <h3> My Students' Reviews </h3>
 
 <div class="row">
-{% if reviews %}
-{% for review in reviews: %} 
-<div class="col s12 m4">
-    <div class="card basic-template">
-      <div class="card-content white-text">
-        <span class="card-title account">{{ review.title.title() }}</span>
-        <!-- User can view reviews they have created and edit/delete -->
-        <p> {{ review.author.capitalize() + " " + review.author_initial.capitalize() }}</p>
-        <p> {{ review.rating }} stars </p>
-        <p> {{ review.review }}</p>
+  {% if reviews %}
+    {% for review in reviews: %} 
+    <div class="col s12 m4">
+      <div class="card basic-template">
+        <div class="card-content white-text">
+          <span class="card-title account">{{ review.title.title() }}</span>
+            <!-- User can view reviews they have created and edit/delete -->
+            <p> {{ review.author.capitalize() + " " + review.author_initial.capitalize() }}</p>
+            <p> {{ review.rating }} stars </p>
+            <p> {{ review.review }}</p>
+        </div>
+        <div class="card-action account">
+          <a class="black-text modal-trigger" href="#modal3{{ review.id }}">Delete</a>  
+        </div>
       </div>
-      <div class="card-action account">
-        <a class="black-text modal-trigger" href="#modal3{{ review.id }}">Delete</a>  
+    </div>
+    <div id="modal3{{review.id}}" class="modal">
+      <div class="modal-content">
+        <h4>Delete Review</h4>
+          <p>Are you sure you want to delete this review?</p>
+      </div>
+      <div class="modal-footer">
+        <a href="{{ url_for('deleteStudentReview', user=session['user'], student=review.reviewer, review=review.id) }}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
       </div>
     </div>
-  </div>
-  <div id="modal3{{review.id}}" class="modal">
-    <div class="modal-content">
-      <h4>Delete Review</h4>
-      <p>Are you sure you want to delete this review?</p>
-    </div>
-    <div class="modal-footer">
-      <a href="{{ url_for('deleteStudentReview', user=session['user'], student=review.reviewer, review=review.id) }}" class="modal-close waves-effect waves-green btn-flat">Delete</a>
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-    </div>
-  </div>
-  {% endfor %} 
+    {% endfor %} 
   {% else %}
   <div class="col s12 m4 offset-m4">
-  <div class="card basic-template">
-    <div class="card-content white-text">
-      <span class="card-title account">No reviews published</span>
-      <!-- User can view reviews they have created and edit/delete -->
-      <p> Reviews published by your registered students will be visible here when they're available.</p>
+    <div class="card basic-template">
+      <div class="card-content white-text">
+        <span class="card-title account">No reviews published</span>
+          <!-- This message displays if no students of teacher have published reviews yet -->
+          <p> Reviews published by your registered students will be visible here when they're available.</p>
+      </div>
     </div>
   </div>
-  </div>
   {% endif %}
-  <div class="row">
+<div class="row">
 {% endblock %}

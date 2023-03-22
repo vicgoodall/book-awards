@@ -3,60 +3,59 @@
 
 <h3> Create Review </h3>
 <div class="row">
-    <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('addReview') }}">
-        <div class="card-panel">
-            <!-- Select book to review -->
-            <div class="input-field col s12" action="{{ url_for('booksNotReviewed') }}">
-                <select id="book" name="book" class="validate" required>
-                    <option value="" disabled selected>Select Book</option>
-                    <!-- only books they have yet to review are available in the dropdown -->
-                    {% for book in books %}
-                    <option value="{{ book.id }}">{{ book.title.title() }}</option>
-                    {% endfor %}
-                </select>
-                <label>Select Book</label>
-            </div>
-            <!-- review title field -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="title" name="title" type="text" class="validate" maxlength="120" data-length="120" required>
-                    <label for="title">Review Title</label>
-                </div>
-            </div>   
-            <!-- rating field -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <select id="rating" name="rating" class="validate" required>
-                      <option value="" disabled selected>Select Rating</option>
-                      <option value="1">1 star</option>
-                      <option value="2">2 stars</option>
-                      <option value="3">3 stars</option>
-                      <option value="4">4 stars</option>
-                      <option value="5">5 stars</option>
-                    </select>
-                    <label>Rating (1-5 stars)</label>
-                  </div>
-            </div>           
-            <!-- Review field -->
-            <div class="row">
-                <form class="col s12">
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <textarea id="review"  name="review" class="validate" required class="materialize-textarea" maxlength="5000"  data-length="5000"></textarea>
-                      <label for="review">Review</label>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            <!-- publish button -->
-            <div class="row">
-                <button type="submit" class="col s12 btn-large blue darken-4 text-shadow">
-                    Publish <i class="fas fa-sign-in-alt"></i>
-                </button>
-            </div>
+  <form class="col s12 m8 offset-m2" method="POST" action="{{ url_for('addReview') }}">
+    <div class="card-panel">
+      <!-- Select book to review -->
+      <div class="input-field col s12" action="{{ url_for('booksNotReviewed') }}">
+        <select id="book" name="book" class="validate" required>
+          <option value="" disabled selected>Select Book</option>
+            <!-- only books they have yet to review are available in the dropdown -->
+            {% for book in books %}
+          <option value="{{ book.id }}">{{ book.title.title() }}</option>
+            {% endfor %}
+        </select>
+        <label>Select Book</label>
+      </div>
+      <!-- review title field -->
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="title" name="title" type="text" class="validate" maxlength="120" data-length="120" required>
+            <label for="title">Review Title</label>
         </div>
-    </form>
+      </div>   
+      <!-- rating field -->
+      <div class="row">
+        <div class="input-field col s12">
+          <select id="rating" name="rating" class="validate" required>
+            <option value="" disabled selected>Select Rating</option>
+            <option value="1">1 star</option>
+            <option value="2">2 stars</option>
+            <option value="3">3 stars</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
+          </select>
+          <label>Rating (1-5 stars)</label>
+        </div>
+      </div>           
+      <!-- Review field -->
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="review"  name="review" class="validate" required class="materialize-textarea" maxlength="5000"  data-length="5000"></textarea>
+              <label for="review">Review</label>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- publish button -->
+      <div class="row">
+        <button type="submit" class="col s12 btn-large blue darken-4 text-shadow">
+                Publish <i class="fas fa-sign-in-alt"></i>
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
-
 
 {% endblock %} 

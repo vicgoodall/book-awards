@@ -394,14 +394,15 @@ def deleteReview(user, review):
                            reviews=review_search)
 
 
-# user can edit their own review
 @app.route("/update-review/<review>")
+# user can open their review and see all details
 def showReview(review):
     review = Reviews.query.filter_by(id=review).first()
     return render_template("update-review.html", review=review)
 
 
 @app.route("/update-review/<review>", methods=["GET", "POST"])
+# user updates their review via form
 def updateReview(review):
     review = Reviews.query.filter_by(id=review).first()
     if request.method == "POST":
@@ -411,6 +412,7 @@ def updateReview(review):
         db.session.commit()
         flash("Review updated successfully.")
         user = session['user']
+        # return user to view all their reviews again
         return redirect(url_for("myReviews", user=session["user"]))
     return render_template("update-review.html")
 
@@ -428,6 +430,7 @@ def showReviews(user):
 
 
 @app.route("/view-reviews/<user><student>,<review>")
+# teacher deletes a student's review
 def deleteStudentReview(user, student, review):
     user = session['user']
     student_search = Students.query.filter_by(id=student).first()
@@ -440,7 +443,10 @@ def deleteStudentReview(user, student, review):
     return redirect(url_for('showReviews', user=session["user"]))
 
 
+# anyone, logged in or not, can view published reviews
 @app.route("/reviews")
 def reviews():
+    # order of display randomizes each time so students get a fair shot
+    # of having their work displayed
     reviews = list(Reviews.query.order_by(func.random()).all())
     return render_template("reviews.html", reviews=reviews)
