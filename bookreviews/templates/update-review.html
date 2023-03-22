@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-book prefix"></i>
-                    <input id="title" name="title" type="text" class="validate" value="{{ review.title.title() }}" required>
+                    <input id="title" name="title" type="text" class="validate" value="{{ review.title.title() }}" maxlength="120" data-length="120" required>
                     <label for="title">Title</label>
                 </div>
             </div>
@@ -33,7 +33,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pen-nib prefix"></i>
-                    <input id="review" name="review" type="text" class="validate" value="{{ review.review }}" required>
+                    <input id="review" name="review" type="text" class="validate" value="{{ review.review }}" class="materialize-textarea" maxlength="5000"  data-length="5000" required>
                     <label for="review">Review</label>
                 </div>
             </div>           
