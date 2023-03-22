@@ -427,5 +427,5 @@ def deleteStudentReview(user, student, review):
 
 @app.route("/reviews")
 def reviews():
-    reviews = list(Reviews.query.order_by(Reviews.id).all())
+    reviews = list(Reviews.query.order_by(func.random()).all())
     return render_template("reviews.html", reviews=reviews)
