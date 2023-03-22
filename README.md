@@ -197,7 +197,7 @@ Students can:
 - This could be built upon in future, to be able to delete teachers fairly easily, as it would cascade down to delete their students' accounts and in turn their reviews, as currently composed within the model. 
 - The user's email is used as their login id, and therefore is also unique. The system prohibits another user being created with the same email address. 
 - A Teacher record by default is given the value 1 in its Roles column. 
-
+- **Please note that user authentication for a SQL based database was not within the course. However, I discovered it was within the bonus content, and watched some of the videos there to learn how this worked. The Code Institute [GitHub](https://github.com/Code-Institute-Solutions/CombinedTaskManager2022) shows the project that taught me the majority of my understanding. I was also helped by this [Youtube](https://www.youtube.com/watch?v=1nxzOrLWiic&t=374s) video by Tech by Tim which gave me another perspective on managing users simply** 
 ## Create a Student account
 ![create student account screen](../book-awards/bookreviews/static/assets/design-images/Create%20Student%20Account.png)
 - Teachers create student accounts, which enables them to be associated easily
@@ -223,7 +223,56 @@ While Students have these features:
 - If they do have books left to review, they can navigate from here to create a new review (this button is unavailable if their books_read = 6)
 
 ## Create Review 
+![create review screen](../book-awards/bookreviews/static/assets/design-images/create%20review.png)
+- Only Students can create reviews
+- They can select the book they wish to review via dropdown. To enable this, a query was created that first checked which books the user had reviewed within the Reviews table. A second query, this time in the Books table, subtracts that list from the six results available, and the remainder is shown to the user.
+- The concept of subqueries was very new, and supplied by a lot of searching and eventually finding this suggestion in [Stack Overflow](https://stackoverflow.com/questions/38878897/how-to-make-a-subquery-in-sqlalchemy)
+- The user must complete all fields to submit the form.
+- When the form is submitted, a new record is added to the Reviews table, where the Review is tied to the Student's ID as it's 'author' value, and the book's ID as it's 'book' field.
+- When a review is successfully added, the user's books_read is incremented by 1.
 
+## Update Review
+- A student is able to update any review they have published. The values are pre-filled with their original content, and the record cannot be updated if the user clears a field and leaves it blank.
+- Once the form is submitted, the record is updated in the backend within the Reviews table.
+
+## Delete Review
+- If the user opts to delete a review, a modal appears asking them to confirm. 
+- When they confirm, the record is deleted in the Reviews table.
+- This then decrements their books_read by 1, and also will allow them to create a fresh Review (i.e. a brand new record) within the Reviews table.
+
+## Update Teacher Details
+- A teacher may update their own details 
+- The values are pre-filled with their original content, and the record cannot be updated if the user clears a field and leaves it blank.
+- Once the form is submitted, the record is updated in the backend within the Teachers table.
+
+## Update Student Details
+- A teacher may update their associated student's details.
+- The values are pre-filled with their original content, and the record cannot be updated if the user clears a field and leaves it blank.
+- Once the form is submitted, the record is updated in the backend within the Students table.
+
+## Delete Student Details
+- A teacher can delete an associated student's account
+- If the user presses Delete, a modal appears asking them to confirm.
+- When they confirm, the record is deleted within the Students table.
+- This will also by default delete any review(s) published by the Student within the Reviews table. 
+
+## Delete a Student's Review
+![delete review screen](../book-awards/bookreviews/static/assets/design-images/delete%20review.png)
+- In order to accomplish the supervision element of the scope, if a teacher determines a review is unsuitable to be visible to other readers (eg. bad language), they can delete an associated Student's review. 
+- A modal appears asking the user to confirm the review deletion.
+- On confirming, the Student who wrote the review will have their books_read decremented by 1 the same as if the Student had deleted the review
+
+## View all reviews
+- Anyone who visits the site can view all reviews
+- The only details about the author are their first name and initial, maintaining privacy
+- Initially the reviews were displayed in order of ID, which kept the list static. This felt unfair to reviewers who publish later, who are less likely to get their work read.
+- To fix this, I looked into how to randomly display all results, and this post from [Stack Overflow](https://stackoverflow.com/questions/66247588/randomly-shuffle-query-results-where-values-are-the-same) contained the code that enabled this to occur. 
+
+# Testing
+## Static Analysis
+
+### HTML Validation
+[W3C](https://validator.w3.org/) was used to validate the HTML. 
 
 
 

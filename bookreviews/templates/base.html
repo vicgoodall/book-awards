@@ -25,10 +25,10 @@
                   <!-- only show Account section if user is logged in -->
                   {% if "user" in session: %}
                   <li><a href="{{ url_for('account', user=session['user']) }}" class="yellow-text text-lighten-4">Account</a></li>
+                  <li><a href="{{ url_for('logout') }}" class="yellow-text text-lighten-4">Log Out</a></li>
                   {% endif %}
                   <li><a href="{{ url_for('about') }}" class="yellow-text text-lighten-4">About</a></li>
                   <li><a href="{{ url_for('reviews') }}" class="yellow-text text-lighten-4">Reviews</a></li>
-                  <li><a href="{{ url_for('logout') }}" class="yellow-text text-lighten-4">Log Out</a></li>
                   <li><a href="{{ url_for('register') }}" class="yellow-text text-lighten-4">Register</a></li>
                 </ul>
             </div>
@@ -40,10 +40,10 @@
             <li><a href="{{ url_for('login') }}" class="yellow-text text-lighten-4">Log In</a></li> 
             {% if "user" in session: %}
             <li><a href="{{ url_for('account', user=session['user']) }}" class="yellow-text text-lighten-4">Account</a></li>
+            <li><a href="{{ url_for('logout') }}" class="yellow-text text-lighten-4">Log Out</a></li>
             {% endif %}
             <li><a href="{{ url_for('about') }}" class="yellow-text text-lighten-4">About</a></li>
             <li><a href="{{ url_for('reviews') }}" class="yellow-text text-lighten-4">Reviews</a></li>
-            <li><a href="{{ url_for('logout') }}" class="yellow-text text-lighten-4">Log Out</a></li>
             <li><a href="{{ url_for('register') }}" class="yellow-text text-lighten-4">Register</a></li>
         </ul>
     </header>
