@@ -35,3 +35,32 @@ Teacher's actions are very different to the students i.e. students will write re
 Create a role concept within the database, where the actions page (i.e. Account) is determined by the role id assigned to each user (Teacher role or Student role).
 
 ## Database Design
+Based on the above initial designs, the database was designed with the following relationships:
+- Teachers are linked to each of their students by their primary key
+- Students are linked to each of their reviews by their primary key
+- Students and Teachers both have roles assigned by linking to the Role's primary key
+- Each review will be linked to a book by the latter's primary key.
+
+## Scope
+### General Website User Stories
+#### As a user who has not logged in, I want to...
+- Be able to view information about the review scheme, so I can find out what it is and if it's something I can participate in
+- View reviews that have been published with minimal author information for privacy
+### Teacher User Stories
+#### As a teacher, I want to be able to...
+- Register my school/class for the review project
+- Update my own details if I need
+- Register each of my students
+- Update my student' details as necessary
+- Delete a student account, and by default also delete all of their reviews.
+- View all of my student' reviews on a dedicated page
+- Delete a student's review if needed
+- Track how many reviews each student has published
+### Student User Stories
+#### As a student, I want to be able to...
+- View my details eg. my name, so I can let my teacher know if there is a typo as it will be published on each review
+- Create one review per nominated book
+- View reviews I have already published
+- Update any review I have created
+- Delete any review I have created and be able to create a fresh review for that book if I choose
+- See how many books I have left to review

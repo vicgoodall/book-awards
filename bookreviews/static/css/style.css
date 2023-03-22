@@ -89,7 +89,7 @@ p {
   }
   
   /* Clear floats after image containers */
-  .image-row::after {
+.image-row::after {
     content: "";
     clear: both;
     display: table;
@@ -97,7 +97,7 @@ p {
 
   /* Makes all images the same height, original code adjusted from this post: 
   https://stackoverflow.com/questions/19414856/how-can-i-make-all-images-of-different-height-and-width-the-same-via-css */
-  img {
+img {
     float: left;
     height: 200px;
     object-fit: cover;
@@ -131,31 +131,31 @@ p {
       }
 
     /* Row of six images */
-.image-column {
-    float: left;
-    width: 16.66%;
-    padding: 5px;
-    padding-left: 0%;
-    margin-bottom: 5%;
-  }
+    .image-column {
+        float: left;
+        width: 16.66%;
+        padding: 5px;
+        padding-left: 0%;
+        margin-bottom: 5%;
+    }
   
   /* Clear floats after image containers */
-  .image-row::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
+    .image-row::after {
+        content: "";
+        clear: both;
+        display: table;
+     }
 
-  img {
-    float: left;
-    height: 100px;
-    object-fit: cover;
-    border: 1px solid #FFFADE;
-}
+    img {
+        float: left;
+        height: 100px;
+        object-fit: cover;
+        border: 1px solid #FFFADE;
+    }
 
-.intro {
-    padding-left: 10%;
-}
+    .intro {
+        padding-left: 10%;
+    }
 
 }
 
@@ -180,30 +180,28 @@ p {
       }
 
     /* Row of six images */
-.image-column {
-    float: left;
-    width: 16.66%;
-    padding: 5px;
-    padding-left: 2%;
-  }
+    .image-column {
+        float: left;
+        width: 16.66%;
+        padding: 5px;
+        padding-left: 2%;
+    }
   
-  /* Clear floats after image containers */
-  .image-row::after {
-    content: "";
-    clear: both;
-    display: table;
-  }
+    /* Clear floats after image containers */
+    .image-row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
 
-  img {
-    float: left;
-    height: 150px;
-    object-fit: cover;
-    border: 1px solid #FFFADE;
-}
+    img {
+        float: left;
+        height: 150px;
+        object-fit: cover;
+        border: 1px solid #FFFADE;
+    }
 
-.intro {
-    padding-left: 15%;
-}
-
-
+    .intro {
+        padding-left: 15%;
+    }
 }
