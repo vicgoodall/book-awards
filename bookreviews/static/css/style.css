@@ -104,7 +104,7 @@ p {
     float: left;
     width: 16.66%;
     padding: 5px;
-    padding-left: 1%;
+    padding-left: 0%;
   }
   
   /* Clear floats after image containers */
@@ -118,11 +118,7 @@ p {
     float: left;
     height: 100px;
     object-fit: cover;
-    border: 5px solid #FFFADE;
+    border: 1px solid #FFFADE;
 }
-
- .image-row {
-    margin-left: 0%;
- }
 
 }
