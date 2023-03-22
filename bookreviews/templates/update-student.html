@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-user-plus prefix"></i>
-                    <input id="email" name="email" type="text" class="validate" value="{{ student.email }}" required>
+                    <input id="email" name="email" type="text" class="validate" value="{{ student.email }}" maxlength="100" data-length="100" required>
                     <label for="email">Email</label>
                 </div>
             </div>
@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-user-plus prefix"></i>
-                    <input id="first_name" name="first_name" type="text" class="validate" value="{{ student.first_name.capitalize() }}" required>
+                    <input id="first_name" name="first_name" type="text" class="validate" value="{{ student.first_name.capitalize() }}" maxlength="20" data-length="20" required>
                     <label for="first_name">First Name</label>
                 </div>
             </div>   
@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-user-plus prefix"></i>
-                    <input id="surname_initial" name="surname_initial" type="text" class="validate" value="{{ student.surname_initial.upper() }}" required>
+                    <input id="surname_initial" name="surname_initial" type="text" class="validate" value="{{ student.surname_initial.upper() }}" maxlength="2" data-length="2" required>
                     <label for="surname_initial">Surname Initial</label>
                 </div>
             </div>           
