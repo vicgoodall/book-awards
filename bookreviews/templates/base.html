@@ -37,7 +37,7 @@
             
         <!-- mobile sidenav -->
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="{{ url_for('home') }}" class="yellow-text text-lighten-4 side">Home</a></li> 
+            <li><a href="{{ url_for('home') }}" class="yellow-text text-lighten-4">Home</a></li> 
             <li><a href="{{ url_for('login') }}" class="yellow-text text-lighten-4">Log In</a></li> 
             {% if "user" in session: %}
             <li><a href="{{ url_for('account', user=session['user']) }}" class="text-yellow text-lighten-4">Account</a></li>
