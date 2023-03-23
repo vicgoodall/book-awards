@@ -42,7 +42,7 @@ Run start up code post deployment, then comment it out, so the book and roles va
 
 ## Database Design
 Based on the above initial designs, the database was designed with the following relationships using Figma:
-![database initial design](https://github.com/vicgoodall/book-awards/blob/static/assets/design-images/TortoisePrizeDBDesign.png)
+![database initial design](https://github.com/vicgoodall/book-awards/blob/assets/design-images/TortoisePrizeDBDesign.png)
 - Teachers are linked to each of their students by their primary key
 - Students are linked to each of their reviews by their primary key
 - Students and Teachers both have roles assigned by linking to the Role's primary key
