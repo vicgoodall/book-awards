@@ -1,7 +1,7 @@
 # The Tortoise Book Prize 
 
 ## Code Institute Milestone Project 3: Backend Development 
-The Tortoise Book Prize Review Scheme that allows schools to engage with the book award, by students reading each of the nominated books and publishing reviews, under the supervision of their teacher. The website tracks how many books a student has reviewed, and readers are encouraged to review all nominations by offering a certificate of completion and a book token at the end. 
+The Tortoise Book Prize is a children's book award given to one work of fiction annually. The Review Scheme is a project that allows schools to engage with the book award, by students reading each of the nominated books and publishing reviews, under the supervision of their teacher. The website tracks how many books a student has reviewed, and readers are encouraged to review all nominations by offering a certificate of completion and a book token at the end. 
 
 # Initial Design
 ### Strategy
@@ -87,7 +87,7 @@ It is also noted that the user's Account screen, where they complete the majorit
 - From Google Fonts, 'Nanum Myeongjo' was selected for the Book Prize's logo, anbd is only visible in the logo's header
 - For all other text, 'Playfair Display' was selected as it was similar to the logo, but felt contemporary and easy to read in large paragraphs. 
 ## Frontend Structure
-The website is broken down into 15 pages, each stored in a respective html file. 
+The website is broken down into 15 pages, each stored in a respective html file. The [Materialize](https://materializecss.com/) framework has been used to create a consistent, simple card-based structure throughout the project, that can manage the text-heavy nature of the website.
 ### Home 
 #### base.html
 - Home page accessible to everyone, available content not affected by having a user logged in.
@@ -179,7 +179,7 @@ Students can:
 - Python was used as the backend programming language.
 - The Flask framework was selected as an ideal way to implement Python as it enables use of Jinja to interact with the frontend, and Werkzeug to facilitate user authentication. 
 - As a PostgreSQL database is being used, SQL Alchemy was selected as the best toolkit with which to compose queries.
-- Thus the Flask-SQLAlchemy extension is used to combine both resources
+- Thus the [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/) extension is used to combine both resources
 
 # Features
 ## Home Screen Display of Books
@@ -339,7 +339,6 @@ No issues identified.
 | 029 | Login without password | If the teacher tries to log in with incorrect details, they will be unsuccessful and an informagtive message is displayed | Pass |
 | 030| Log in as teacher | User is able to log back into their account with email and password | Pass |
 
-- It was identified that form fields were still missing 'Required' tags, causing tests to fail. This has been resolved.
 
 #### Users are Students
 
@@ -359,6 +358,127 @@ No issues identified.
 | 042 | Confirm deletion | If the user confirms deleting their review, then the review is removed from their reviews page successfully, their books_read is decremented by 1, the review is removed from the list in their Account page, and the associated book becomes available to review again. | Pass |
 | 043| All books reviewed | When the user has submitted a review for each book, they can no longer access the create review screen. Instead they have a notification congratulating them on their work. | Pass |
 | 044| Log out | On pressing the log out button, the user is logged out of their account and returned to the login page | Pass |
+
+
+- It was identified that form fields were still missing 'Required' tags, causing tests to fail. This has been resolved.
+
+## Known Defect
+- During testing it became evident that a defect exists within both student and teacher update forms, where the user is able to update the user's email to an address that exists within another account. 
+- In a live system, this would be unlikely to happen but where it did, probably through user error, it would cause significant issues for the affected records.
+- I tried to remedy this by adding logic to check if the email address already exists, but that prevents the update altogether. 
+- The form update as it is relies on the email address; I am reluctant to change this by removing the email from the form, as I do not have sufficient time to conduct regression testing against the change I would need to make to two different methods. 
+- The defect is therefore staying in the system, and is a lesson learned in regards to authentication for myself. 
+
+## Device & Browser testing 
+- System testing took place on the follwoing devices:
+- MacBook Air
+- iPhone 12
+- Unfortunately, no tablet was available for testing. I have used Chrome's Inspect tool for various tablets, however I know from experience this has limited accuracy. 
+
+And on the following browsers:
+- Safari
+- Chrome
+- Mozilla Firefox
+
+## Performance Testing 
+- Lighthouse was used to test performance
+![Lighthouse home screen](../book-awards/bookreviews/static/assets/design-images/lighthouse1.png)
+![Lighthouse login screen](../book-awards/bookreviews/static/assets/design-images/lighthouse2.png)
+![Lighthouse about screen](../book-awards/bookreviews/static/assets/design-images/lighthouse3.png)
+- I have tried to keep the code as simple as possible, creating a simple user interface structure to mitigate the amound of requests from my code. 
+- However, I know this is something I need to work on in future, and consider how I can simplify tasks more to improve performance. 
+
+# Deployment 
+The following outlines the steps required to deploy the site:
+
+## ElephantSQL
+ElephantSQL was used to host the database.
+- Navigate to [ElephantSQL](https://elephantsql.com)
+- Click ‘Get a managed Database today”
+- Select the Tiny Turtle option
+- Select ‘Login with GitHub’ and authorize connection with your GitHub account
+- Enter a team name and your email address, agree to ToS & GDPR then click ‘Create Team’
+- Click ‘Create New Instance’
+- Give your new plan a name and select the Tiny Turtle plan
+- Press ’Select Region’ and pick the nearest location to yourself
+- Click ‘Review’ and check your details are correct
+- Click ‘Create Instance’
+
+## Program modification
+In order to connect with Heroku, the following amendments are required to the program:
+- In your command line, enter: pip freeze — local > requirements.txt
+- Within the root directory, create a file called Profile
+- Enter in this file: “web: python run.py”
+- Open your init file and make the following amendments to your if/else statement: 
+if os.environ.get("DEVELOPMENT") == "True":
+     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
+ else:
+     uri = os.environ.get("DATABASE_URL")
+     if uri.startswith("postgres://"):
+         uri = uri.replace("postgres://", "postgresql://", 1)
+     app.config["SQLALCHEMY_DATABASE_URI"] = uri
+- Save, push and commit changes
+
+## Heroku
+- Log into [Heroku](https://heroku.com), click ‘New’ 
+- Click ‘Create a new app’
+- Choose a unique name
+- Select the region closest to yourself
+- Click ‘ Create app’
+- Go to Settings of the app
+- Click ‘Reveal Config Vars’
+- Return to ElephantSQ: and copy the database URL found within Details
+- In Heroic, add a Config Var called DATABASE_URL and paste the ElephantSQL URL in, then press ‘Add’
+- Add every environment variable: IP, PORT, SECRET_KEY
+- Navigate to ‘Deploy’
+- Select ‘Connect to GitHub’
+- Search for your repository then click ‘Connect’
+- Within Manual Deploy, click ‘Deploy Branch’
+- Click ‘More’ then ‘Run console’
+- Type ‘python3’ and click Run
+- Type: from app name import db
+    db.create_all()
+- exit() and hit Enter 
+
+# References
+
+## Code
+- The image banner: [w3Schools](https://www.w3schools.com/howto/howto_css_images_side_by_side.asp)
+- Enabling all images to be the same height: [Stack Overflow](https://stackoverflow.com/questions/19414856/how-can-i-make-all-images-of-different-height-and-width-the-same-via-css)
+- Flask SQL Users [Tech with Tim](https://www.youtube.com/watch?v=1nxzOrLWiic&t=374s) Youtube tutorial as a crash course in user creation 
+- subquerying for the books to review tally courtesy of this post on [Stack Overflow](https://stackoverflow.com/questions/38878897/how-to-make-a-subquery-in-sqlalchemy)
+- Randomizing query displays thanks to this post on [Stack Overflow](https://stackoverflow.com/questions/66247588/randomly-shuffle-query-results-where-values-are-the-same) 
+
+## Books
+The books used for this database were books I read as a child. Here are their details based on their publication in the UK:
+- A Gathering Light, Jennifer Donnelly, Harcourt, 2003
+- Bloomability, Sharon Creech, HarperCollins, 1998
+- Private Peaceful, Michael Morpurgo, HarperCollins, 2003
+- How I Live Now, Meg Rosoff, Penguin, 2004
+- Red Sky in the Morning, Elizabeth Laird, Heinemann, 1998
+- Journey to the River Sea, Eva Ibbotson, Macmillan, 2001
+
+## Images
+For each of the books, the URLs for the book cover images:
+- [A Gathering Light](https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/510DfH53Q1L.jpg)
+- [Bloomability](https://productimages.worldofbooks.com/0330397842.jpg)
+- [Private Peaceful](https://d3ddkgxe55ca6c.cloudfront.net/assets/t1497828499/a/e4/31/84824-ml-78873.jpg)
+- [How I Live Now](https://d3ddkgxe55ca6c.cloudfront.net/assets/t1497828499/a/e4/31/84824-ml-78873.jpg)
+- [Journey to the River Sea](https://pictures.abebooks.com/isbn/9780330397155-uk.jpg)
+- [Red Sky in the Morning](https://pictures.abebooks.com/isbn/9781509802937-uk.jpg)
+
+## Media
+- [Font Awesome](https://fontawesome.com/) for icons throughout the project
+- [Google Fonts](https://fonts.google.com/) for the fonts used in the project
+- [ColorSpace](https://mycolor.space/) for the colour scheme selection
+
+## Acknowledgement
+This project was inspired by the Carnegie Medal Shadowing Project in which I participated as a child. It still exists today [here](https://yotocarnegies.co.uk/take-part/).
+
+
+
+
+
 
 
 
