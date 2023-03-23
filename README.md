@@ -33,6 +33,12 @@ In order to achieve this, a relational database management system is required, a
 Teacher's actions are very different to the students i.e. students will write reviews, but teachers will only be managing and supervising the students' work.
 ### Solution:
 Create a role concept within the database, where the actions page (i.e. Account) is determined by the role id assigned to each user (Teacher role or Student role).
+## 4. Using start-up code to add values to two tables
+### Problem:
+I want my roles and books within their own tables, but I do not want the user to have access to this. I would prefer not to create a system admin, as this would place too much emphasis on user authentication rather than demonstrating CRUD functionality
+### Solution:
+Run start up code post deployment, then comment it out, so the book and roles values are added into their respective tables. I have left in this code with a note to explain its intent, just for information to show how I completed this. 
+
 
 ## Database Design
 Based on the above initial designs, the database was designed with the following relationships using Figma:
@@ -44,11 +50,11 @@ Based on the above initial designs, the database was designed with the following
 
 # Scope
 ### General Website User Stories
-#### As a user who has not logged in, I want to...
+### As a user who has not logged in, I want to...
 - Be able to view information about the review scheme, so I can find out what it is and if it's something I can participate in
 - View reviews that have been published with minimal author information for privacy
 ### Teacher User Stories
-#### As a teacher, I want to be able to...
+### As a teacher, I want to be able to...
 - Register my school/class for the review project
 - Update my own details if I need
 - Register each of my students
@@ -58,7 +64,7 @@ Based on the above initial designs, the database was designed with the following
 - Delete a student's review if needed
 - Track how many reviews each student has published
 ### Student User Stories
-#### As a student, I want to be able to...
+### As a student, I want to be able to...
 - View my details eg. my name, so I can let my teacher know if there is a typo as it will be published on each review
 - Create one review per nominated book
 - View reviews I have already published
@@ -73,6 +79,10 @@ Based on the above initial designs, the database was designed with the following
 # Frontend Design
 ## Wireframes
 Provided are scans of the original wireframes.
+![Home screen wireframe](../book-awards/bookreviews/static/assets/design-images/home%20screen%20wireframe.png)
+![Account wireframe](../book-awards/bookreviews/static/assets/design-images/account%20wireframe.png)
+![Register wireframe](../book-awards/bookreviews/static/assets/design-images/registration%20wireframe.png)
+![Reviews wireframe](../book-awards/bookreviews/static/assets/design-images/reviews%20wireframe.png)
 The conclusion from the websites was that the site is going to be text heavy, and therefore it is imperative that each review is clearly distinguishable from one another.
 It is also noted that the user's Account screen, where they complete the majority of actions, will needed to be as simple as possible in layout, in order to facilitate the varying activities to be completed. 
 ## Colour Scheme
@@ -89,32 +99,32 @@ It is also noted that the user's Account screen, where they complete the majorit
 ## Frontend Structure
 The website is broken down into 15 pages, each stored in a respective html file. The [Materialize](https://materializecss.com/) framework has been used to create a consistent, simple card-based structure throughout the project, that can manage the text-heavy nature of the website.
 ### Home 
-#### base.html
+### base.html
 - Home page accessible to everyone, available content not affected by having a user logged in.
 - Primary aim is to show the nominated books for 2023 
 ### About
-#### about.html
+### about.html
 - About page is accessible to everyone, available content not affected by having a user logged in.
 - Gives a little more background about the Book Prize and Review Scheme
 ### Reviews
-#### reviews.html
+### reviews.html
 - Reviews page accessible to everyone, available content not affected by having a user logged in.
 - Shows all published reviews
 ### Register
-#### register.html
+### register.html
 - Form where teachers can sign up to the review scheme as the supervisor for their class
 ### Login
-#### login.html
+### login.html
 - User is asked whether they are logging in as a student or teacher.
 - Select an option to move to the correct log-in screen
 ### Login as Teacher
-#### login-teacher.html
+### login-teacher.html
 - Teacher can enter their email and password to log in
 ### Login as Student
-#### login-student.html
+### login-student.html
 - Student can enter their email and password to log in
 ### Account
-#### account.html
+### account.html
 - User can manage their account and complete actions depending on their role.
 Teachers can:
 - View and edit their details
@@ -127,27 +137,27 @@ Students can:
 - See how many books they have left to review
 - Create new reviews
 ### Update Details (Teacher)
-#### update-teacher.html
+### update-teacher.html
 - a Teacher can view and update their own details as needed
 ### Create Student (Teacher)
-#### student-register.html
+### student-register.html
 - Teachers can create a new student by entering mandatory information
 ### Update Student (Teacher)
-#### update-student.html
+### update-student.html
 - Teachers can update a student's details as needed
 ### View Students' Reviews (Teacher)
-#### view-reviews.html
+### view-reviews.html
 - Teachers can view all reviews created by their registered students
 - Teachers can delete reviews if needed
 ### Add Review (Student)
-#### add-review.html
+### add-review.html
 - Students can create a new review
 ### My Reviews (Student)
-#### my-reviews.html
+### my-reviews.html
 - Students can see all reviews they have published
 - From here, they can delete or update a review as needed
 ### Update Review (Student)
-#### update-review.html
+### update-review.html
 - Students can amend a review they have already published
 
 ## CRUD Functionality
@@ -301,7 +311,7 @@ No issues identified.
 
 ### Functional System Tests
 
-#### Users not logged in
+### Users not logged in
 | ID | Test Case | Description | Result |
 | ---|-----------|-------------|--------|
 | 001 | Home page | The user is able to view the book titles on the home page | Pass |
@@ -312,7 +322,7 @@ No issues identified.
 | 006 | Login or Register | The user can view the Login and Register screens, and the forms load correctly | Pass |
 | 007 | Social links | When the user presses the social links, they load the corresponding websites | Pass |
 
-#### Users are Teachers
+### Users are Teachers
 | ID | Test Case | Description | Result |
 | ---|-----------|-------------|--------|
 | 008| Incomplete form | On the register page, the user cannot proceed if they have blank fields on the form | Fail |
@@ -340,7 +350,7 @@ No issues identified.
 | 030| Log in as teacher | User is able to log back into their account with email and password | Pass |
 
 
-#### Users are Students
+### Users are Students
 
 | ID | Test Case | Description | Result |
 | ---|-----------|-------------|--------|
@@ -379,6 +389,14 @@ And on the following browsers:
 - Safari
 - Chrome
 - Mozilla Firefox
+
+## UI defect
+- One particularly unwanted deviation from my initial design is the layout of the reviews as they are created
+- I wanted to have, on desktop/laptop, neat rows of several reviews for the user to select and read as they please.
+- I failed to appreciate that it is difficult for the system to know how to lay this out when there is no set number to display; once it reached the end of the first row, it didn't know where to place other cards, causing issues such as this:
+![review display defect](../book-awards/bookreviews/static/assets/design-images/review%20display%20defect.png)
+- I reluctantly changed it so that, like with mobile, reviews were limited to one per row. 
+- I would like to return to this in future to see if there is a better way to write my code to enable an improved format on larger screens. 
 
 ## Performance Testing 
 - Lighthouse was used to test performance
