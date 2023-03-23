@@ -160,7 +160,7 @@ body {
         float: left;
         height: 90px;
         object-fit: cover;
-        border: 1px solid #FFFADE;
+        border: 2px solid #FFFADE;
     }
 
     .intro {
