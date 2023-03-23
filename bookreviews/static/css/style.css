@@ -159,7 +159,7 @@ body {
 
     img {
         float: left;
-        height: 100px;
+        height: 90px;
         object-fit: cover;
         border: 1px solid #FFFADE;
     }
