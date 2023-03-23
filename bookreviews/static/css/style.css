@@ -133,6 +133,7 @@ body {
         font-size: 21px;
     }
 
+    /* To prevent horizontal scrolling, taken from Stack Overflow */
     html, body {
         overflow-x: hidden;
       }
@@ -193,8 +194,6 @@ body {
     .image-column {
         float: left;
         width: 16.66%;
-        padding: 1px;
-        padding-left: 1%;
     }
   
     /* Clear floats after image containers */
