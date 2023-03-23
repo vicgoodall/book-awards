@@ -79,10 +79,10 @@ Based on the above initial designs, the database was designed with the following
 # Frontend Design
 ## Wireframes
 Provided are scans of the original wireframes.
-![Home screen wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/home%20screen%20wireframe.png)
-![Account wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/account%20wireframe.png)
-![Register wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/registration%20wireframe.png)
-![Reviews wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/reviews%20wireframe.png)
+![Home screen wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/homescreenwireframe.png)
+![Account wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/accountwireframe.png)
+![Register wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/registrationwireframe.png)
+![Reviews wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/reviewswireframe.png)
 The conclusion from the websites was that the site is going to be text heavy, and therefore it is imperative that each review is clearly distinguishable from one another.
 It is also noted that the user's Account screen, where they complete the majority of actions, will needed to be as simple as possible in layout, in order to facilitate the varying activities to be completed. 
 ## Colour Scheme
