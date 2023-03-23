@@ -109,7 +109,7 @@ img {
 }
 
 /*-------------------------------------------------------------- Footer */
-
+/* Sticky footer code via Materialize */
 body {
     display: flex;
     min-height: 100vh;
@@ -193,8 +193,8 @@ body {
     .image-column {
         float: left;
         width: 16.66%;
-        padding: 5px;
-        padding-left: 2%;
+        padding: 1px;
+        padding-left: 1%;
     }
   
     /* Clear floats after image containers */

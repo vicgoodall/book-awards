@@ -448,6 +448,7 @@ if os.environ.get("DEVELOPMENT") == "True":
 - Flask SQL Users [Tech with Tim](https://www.youtube.com/watch?v=1nxzOrLWiic&t=374s) Youtube tutorial as a crash course in user creation 
 - subquerying for the books to review tally courtesy of this post on [Stack Overflow](https://stackoverflow.com/questions/38878897/how-to-make-a-subquery-in-sqlalchemy)
 - Randomizing query displays thanks to this post on [Stack Overflow](https://stackoverflow.com/questions/66247588/randomly-shuffle-query-results-where-values-are-the-same) 
+- Sticky footer CSS code is from [Materialize](https://materializecss.com/footer.html)
 
 ## Books
 The books used for this database were books I read as a child. Here are their details based on their publication in the UK:
