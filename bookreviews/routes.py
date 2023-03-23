@@ -368,7 +368,8 @@ def updateTeacher(user):
     if request.method == "POST":
         user = request.form["email"]
         # first query to check if user already exists
-        found_user = Teachers.query.filter_by(email=user).first()
+        found_user = Teachers.query.filter_by(
+            email=user).filter(id != teacher.id).first()
         if found_user:
             flash("User already exists with this email address.")
             return redirect(url_for("updateTeacher", user=user))
