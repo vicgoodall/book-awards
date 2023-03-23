@@ -325,21 +325,30 @@ def deleteStudent(user, student):
 def updateStudent(student_id):
     student = Students.query.filter_by(id=student_id).first()
     if request.method == "POST":
-        # take fields from form and update student
-        student.email = request.form.get("email").lower()
-        student.first_name = request.form.get("first_name").lower()
-        student.surname_initial = request.form.get(
-                        "surname_initial").lower()
-        db.session.commit()
-        flash("Account updated successfully.")
-        user = session["user"]
-        # return user back to account page once complete
-        teacher_search = Teachers.query.filter_by(email=user).first()
-        if teacher_search:
-            students = Students.query.filter_by(
+        # first query to check if email already exists
+        email = request.form.get("email").lower()
+        found_student = Students.query.filter_by(email=email).first()
+        if found_student:
+            flash("User already exists with this email.")
+            return redirect(url_for(
+                "updateStudent", student_id=student.id))
+            # if no email matches, register new user by adding to db
+        else:
+            # take fields from form and update student
+            student.email = request.form.get("email").lower()
+            student.first_name = request.form.get("first_name").lower()
+            student.surname_initial = request.form.get(
+                            "surname_initial").lower()
+            db.session.commit()
+            flash("Account updated successfully.")
+            user = session["user"]
+            # return user back to account page once complete
+            teacher_search = Teachers.query.filter_by(email=user).first()
+            if teacher_search:
+                students = Students.query.filter_by(
                         teacher=teacher_search.id).all()
-        return redirect(url_for("account", user=session["user"],
-                        account_details=teacher_search, students=students))
+            return redirect(url_for("account", user=session["user"],
+                            account_details=teacher_search, students=students))
     return render_template("update-student.html", student=student)
 
 
@@ -357,11 +366,19 @@ def updateTeacher(user):
     # update teacher's details from fields within form
     teacher = Teachers.query.filter_by(email=user).first()
     if request.method == "POST":
-        teacher.email = request.form.get("email").lower()
-        teacher.prefix = request.form.get("prefix").lower()
-        teacher.surname = request.form.get("surname").lower()
-        db.session.commit()
-        flash("Account updated successfully.")
+        user = request.form["email"]
+        # first query to check if user already exists
+        found_user = Teachers.query.filter_by(email=user).first()
+        if found_user:
+            flash("User already exists with this email address.")
+            return redirect(url_for("updateTeacher", user=user))
+        # if no email matches, register new user by adding to db
+        else:
+            teacher.email = request.form.get("email").lower()
+            teacher.prefix = request.form.get("prefix").lower()
+            teacher.surname = request.form.get("surname").lower()
+            db.session.commit()
+            flash("Account updated successfully.")
         return render_template("update-teacher.html", teacher=teacher)
     return render_template("update-teacher.html")
 

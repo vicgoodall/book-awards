@@ -208,6 +208,11 @@ Students can:
 - The value books_read is also added to the newly created Student record and set to 0. This value is used to track how many reviews the Student has created.
 - A Student record by default is given the value 2 in its Roles column. 
 
+## Login Pages
+![login screen](../book-awards/bookreviews/static/assets/design-images/login.png)
+- Because of the separation needed between Teachers and Students, I split the login into three pages: One asking whether the user is a Teacher or Student, and then an actual log-in form for each user type. This allows both pages to run separate queries to their respective Tables, to find the user.
+- There are probably more elegant solutions for this. However, user authentication is a new challenge and for my first attempt I wanted to simplify the process. 
+
 ## Account page 
 ![teacher account screen](../book-awards/bookreviews/static/assets/design-images/teacher%20account.png)
 ![student account page](../book-awards/bookreviews/static/assets/design-images/student%20account.png)
@@ -269,10 +274,97 @@ While Students have these features:
 - To fix this, I looked into how to randomly display all results, and this post from [Stack Overflow](https://stackoverflow.com/questions/66247588/randomly-shuffle-query-results-where-values-are-the-same) contained the code that enabled this to occur. 
 
 # Testing
-## Static Analysis
+## Static Testing
 
 ### HTML Validation
-[W3C](https://validator.w3.org/) was used to validate the HTML. 
+[W3C](https://validator.w3.org/) was used to validate the HTML. Where the user had to log in, I navigated to 'View Page Source" and pasted the contents into the validator. 
+#### identified issues
+[alt tags](../book-awards/bookreviews/static/assets/design-images/alt%20image.png)
+- identified no alt tags were added to my images; this is now fixed.
+
+### CSS Validation 
+[Jigsaw](https://jigsaw.w3.org/css-validator/) was used to validate the CSS.
+![Jigsaw validation](../book-awards/bookreviews/static/assets/design-images/Jigsaw%20validation.png)
+No issues identified.
+
+### JQuery Validation
+[JSHint](https://jshint.com/) was used to validate the JQuery.
+![JSHint validation](../book-awards/bookreviews/static/assets/design-images/jshint%20validation.png)
+- an unnecessary semicolon was at the end of the code. This has been removed.
+
+### Python Validation
+[CI Pep8 Linter](https://pep8ci.herokuapp.com/) was used to validate the Python code. 
+![Python linter](../book-awards/bookreviews/static/assets/design-images/Pep8%20linter.png)
+- received no errors on routes.py & models.py
+
+## Dynamic Testing
+
+### Functional System Tests
+
+#### Users not logged in
+| ID | Test Case | Description | Result |
+| ---|-----------|-------------|--------|
+| 001 | Home page | The user is able to view the book titles on the home page | Pass |
+| 002 | About | The user can view the About page and its text contents | Pass |
+| 003 | Reviews | The user can see all presently published reviews | Pass |
+| 004 | Review randomization | On navigating back to the Reviews page, the reviews are displayed in a different order. | Pass |
+| 005 | Prohibited views | The user cannot view the Account or Logout buttons | Pass |
+| 006 | Login or Register | The user can view the Login and Register screens, and the forms load correctly | Pass |
+| 007 | Social links | When the user presses the social links, they load the corresponding websites | Pass |
+
+#### Users are Teachers
+| ID | Test Case | Description | Result |
+| ---|-----------|-------------|--------|
+| 008| Incomplete form | On the register page, the user cannot proceed if they have blank fields on the form | Fail |
+| 009| Existing email | On the registration page, if the user enters the email of a pre-existing Teacher account, the system will inform them on submitting the form that the user already exists | Pass|
+| 010| Register teacher | Once all fields have been entered, when the user presses the Register button they are successfully registered and logged in | Pass |
+| 011| View details | In the Account page, the teacher is able to view their details as entered previously | Pass |
+| 012| Update details incomplete | On attempting to enter their details, the user cannot proceed if any fields are blank. | Pass |
+| 013| Update details | On amending any or all fields, the user will be able to successfully update their details | Pass |
+| 014| Create student | On the creation page, the user cannot proceed if they have blank fields on the form | Fail |
+| 015| Existing student | If another Student record already exists with the same email address, the user will be notified on submission that the user already exists | Pass |
+| 016 | Register student | Once all fields have been entered, the user will successfully create a Student account | Pass | 
+| 017| View all students | All created student accounts will be visible in a list in the teacher's Account, with 'Update' and 'Delete' buttons available next to each Student name | Pass |
+| 018| Update student details incomplete |  On attempting to update student details, if a field is blank, the user cannot proceed | Pass |
+| 019 | Update student details | On amending field(s), when all fields are complete, the user will be able to successfully update the student account | Pass |
+| 020 | Delete student modal | On pressing the Delete button next to a student, a modal will appear. Pressing Cancel will return the user with no change to the account | Pass |
+| 021 | Delete student confirm | On pressing the Delete button and confirming within the Modal, the student will be deleted | Pass |
+| 022 | Delete student with published reviews | On deleting a student with published reviews, the reviews will also be deleted | Pass |
+| 023 | Display student review tally | The teacher will be able to see a list of associated student names, and the number of reviews they have created, which is 0 at minimum and 6 as maximum | Pass |
+| 024 | View all reviews | The teacher is able to view all reviews published by associated students in a dedicated page | Pass |
+| 025 | Delete review modal | For each review, the user is able to press a Delete button, which causes a modal to appear. On pressing Cancel, the box will disappear and the reviews page will be unchnaged. | Pass |
+| 026 | Confirm review delete | If the user confirms in the modal to delete a student's review, the the record is deleted, removed from the Reviews page and the student's books_read will reduce by 1. This will be visible within the tally on the Teacher's account page, and in the Student's Accout page | Pass |
+| 027| Press Register or Login | If the logged in user presses Register or Log Out buttons, they will be redirected to their Account page with an informative message | Pass |
+| 028 | Logout | On pressing the Log Out button, the user is logged out of their account and returned to the Login Page | 
+| 029 | Login without password | If the teacher tries to log in with incorrect details, they will be unsuccessful and an informagtive message is displayed | Pass |
+| 030| Log in as teacher | User is able to log back into their account with email and password | Pass |
+
+- It was identified that form fields were still missing 'Required' tags, causing tests to fail. This has been resolved.
+
+#### Users are Students
+
+| ID | Test Case | Description | Result |
+| ---|-----------|-------------|--------|
+| 031| Login with missing details | The student needs the correct email and password to login, otherwise are met with an informative message | Pass |
+| 032| Log in as student | User is able to log in with their email and password | Pass |
+| 033| View details | In the user's Account page, they can view their details in a read-only display. | Pass |
+| 034 | Display number of books to review | In the user's Account page, they will see how many books they have left to review, or else a message congratulating them on reviewing all books | Pass |
+| 035 | Create review books available | When creating a new review, only books the user has not yet reviewed will be available in the dropdown | Pass |
+| 036 | Create review incomplete fields | The user cannot proceed when review fields are missing content | Pass |
+| 037 | Create review | On completing all fields, the user can publish a review successfully. It will be immediately displayed in the list in their Account, and their books available will reduce by 1 | Pass | 
+| 038 | Update review required fields missing | If the user tries to update a review, they will be unable to proceed if fields are blank | Pass |
+| 039 | Update review | On changing field(s), when the user submits then the review is updated and changes are reflected immediately. | Pass |
+| 040 | View reviews | The user is able to view all their reviews in full, with buttons to update or delete each one | Pass |
+| 041| Delete review modal | If the user presses the Delete button, a modal appears asking them if they are sure. If they press Cancel the box closes, and their reviews are left unchanged. | Pass |
+| 042 | Confirm deletion | If the user confirms deleting their review, then the review is removed from their reviews page successfully, their books_read is decremented by 1, the review is removed from the list in their Account page, and the associated book becomes available to review again. | Pass |
+| 043| All books reviewed | When the user has submitted a review for each book, they can no longer access the create review screen. Instead they have a notification congratulating them on their work. | Pass |
+| 044| Log out | On pressing the log out button, the user is logged out of their account and returned to the login page | Pass |
+
+
+
+
+
+
 
 
 
