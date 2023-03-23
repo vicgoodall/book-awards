@@ -42,7 +42,7 @@ Run start up code post deployment, then comment it out, so the book and roles va
 
 ## Database Design
 Based on the above initial designs, the database was designed with the following relationships using Figma:
-![database initial design](https://github.com/vicgoodall/book-awards/blob/assets/design-images/TortoisePrizeDBDesign.png)
+![database initial design](bookreviews/static/assets/design-images/TortoisePrizeDBDesign.png)
 - Teachers are linked to each of their students by their primary key
 - Students are linked to each of their reviews by their primary key
 - Students and Teachers both have roles assigned by linking to the Role's primary key
@@ -79,16 +79,16 @@ Based on the above initial designs, the database was designed with the following
 # Frontend Design
 ## Wireframes
 Provided are scans of the original wireframes.
-![Home screen wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/homescreenwireframe.png)
-![Account wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/accountwireframe.png)
-![Register wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/registrationwireframe.png)
-![Reviews wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/reviewswireframe.png)
+![Home screen wireframe](bookreviews/static/assets/design-images/homescreenwireframe.png)
+![Account wireframe](bookreviews/static/assets/design-images/accountwireframe.png)
+![Register wireframe](bookreviews/static/assets/design-images/registrationwireframe.png)
+![Reviews wireframe](bookreviews/static/assets/design-images/reviewswireframe.png)
 The conclusion from the websites was that the site is going to be text heavy, and therefore it is imperative that each review is clearly distinguishable from one another.
 It is also noted that the user's Account screen, where they complete the majority of actions, will needed to be as simple as possible in layout, in order to facilitate the varying activities to be completed. 
 ## Colour Scheme
 - Colour scheme was determined by the academic setting of the website's users
 - The website is text heavy, and often pages are loaded with information (reviews, account actions). Decision made to keep colour scheme simplistic with a primary colour for background, a neutral for legibility of the text, and an accent colour for occasional colour pops. 
-![colour scheme](../book-awards/bookreviews/static/assets/design-images/Tortoise%20Prize%20colour%20scheme.png)
+![colour scheme](bookreviews/static/assets/design-images/TortoisePrizecolourscheme.png)
 - As the website is primarily intended for 11-16 year old students, the starting point was a dark plue initially inspired by 'Oxford blue', but made more fun by selecting something a little brighter and lighter.
 - Once selected on ColorSpace, the application showed various options, with one providing a cream for text backgrounds and a fun turquoise green as an accent that reflects the youthful intended audience. 
 - The lilac shade was decided against for the sake of simplicity. 
@@ -193,7 +193,7 @@ Students can:
 
 # Features
 ## Home Screen Display of Books
-![home screen](../book-awards/bookreviews/static/assets/design-images/Home%20screen.png)
+![home screen](bookreviews/static/assets/design-images/Homescreen.png)
 - The books were entered into the application on first access (the code is available to view, commented out, for information only in the routes file). This prevents the user being able to adapt the table in any way, as this particular table will not require amending.
 - They are listed on the home page using Jinja as an announcement of the nominees to commence this year's reviews.
 - A row of images, the cover of each book, is visible below the announcement card. 
@@ -201,7 +201,7 @@ Students can:
 - A post on [Stack Overflow](https://stackoverflow.com/questions/19414856/how-can-i-make-all-images-of-different-height-and-width-the-same-via-css) provided code which when modified, was able to create consistency in height  between the six images.
 
 ## Register as Teacher
-![register as teacher screen](../book-awards/bookreviews/static/assets/design-images/Register%20teacher.png)
+![register as teacher screen](bookreviews/static/assets/design-images/Registerteacher.png)
 - Teachers enter their details into the form, which is then used to create a new row in the Teachers table.
 - The primary key, id, is the unique value used in the backend to associate teachers to students, in a one to many relationship. 
 - This could be built upon in future, to be able to delete teachers fairly easily, as it would cascade down to delete their students' accounts and in turn their reviews, as currently composed within the model. 
@@ -209,7 +209,7 @@ Students can:
 - A Teacher record by default is given the value 1 in its Roles column. 
 - **Please note that user authentication for a SQL based database was not within the course. However, I discovered it was within the bonus content, and watched some of the videos there to learn how this worked. The Code Institute [GitHub](https://github.com/Code-Institute-Solutions/CombinedTaskManager2022) shows the project that taught me the majority of my understanding. I was also helped by this [Youtube](https://www.youtube.com/watch?v=1nxzOrLWiic&t=374s) video by Tech by Tim which gave me another perspective on managing users simply** 
 ## Create a Student account
-![create student account screen](../book-awards/bookreviews/static/assets/design-images/Create%20Student%20Account.png)
+![create student account screen](bookreviews/static/assets/design-images/CreateStudentAccount.png)
 - Teachers create student accounts, which enables them to be associated easily
 - The student's details are purposely sparse to retain their privacy when publishing reviews
 - In order to enable a login, the password field is also here. This is admittedly poor practice, but as this project isn't an exercise in user authentication, it was determined as the simplest way to get the students logged in. It would be straightforward to add a password change option within a student's account, or alternatively look into OTP options. (Alternatively, students could participate in creating their own accounts, and enter their own password).
@@ -219,13 +219,13 @@ Students can:
 - A Student record by default is given the value 2 in its Roles column. 
 
 ## Login Pages
-![login screen](../book-awards/bookreviews/static/assets/design-images/login.png)
+![login screen](bookreviews/static/assets/design-images/login.png)
 - Because of the separation needed between Teachers and Students, I split the login into three pages: One asking whether the user is a Teacher or Student, and then an actual log-in form for each user type. This allows both pages to run separate queries to their respective Tables, to find the user.
 - There are probably more elegant solutions for this. However, user authentication is a new challenge and for my first attempt I wanted to simplify the process. 
 
 ## Account page 
-![teacher account screen](../book-awards/bookreviews/static/assets/design-images/teacher%20account.png)
-![student account page](../book-awards/bookreviews/static/assets/design-images/student%20account.png)
+![teacher account screen](bookreviews/static/assets/design-images/teacheraccount.png)
+![student account page](bookreviews/static/assets/design-images/studentaccount.png)
 - The Role id within each user determines the view on this page: 1 = Teacher, 2 = Student.
 Teachers have the following features: 
 - They can view their own details
@@ -238,7 +238,7 @@ While Students have these features:
 - If they do have books left to review, they can navigate from here to create a new review (this button is unavailable if their books_read = 6)
 
 ## Create Review 
-![create review screen](../book-awards/bookreviews/static/assets/design-images/create%20review.png)
+![create review screen](bookreviews/static/assets/design-images/createreview.png)
 - Only Students can create reviews
 - They can select the book they wish to review via dropdown. To enable this, a query was created that first checked which books the user had reviewed within the Reviews table. A second query, this time in the Books table, subtracts that list from the six results available, and the remainder is shown to the user.
 - The concept of subqueries was very new, and supplied by a lot of searching and eventually finding this suggestion in [Stack Overflow](https://stackoverflow.com/questions/38878897/how-to-make-a-subquery-in-sqlalchemy)
@@ -272,7 +272,7 @@ While Students have these features:
 - This will also by default delete any review(s) published by the Student within the Reviews table. 
 
 ## Delete a Student's Review
-![delete review screen](../book-awards/bookreviews/static/assets/design-images/delete%20review.png)
+![delete review screen](bookreviews/static/assets/design-images/deletereview.png)
 - In order to accomplish the supervision element of the scope, if a teacher determines a review is unsuitable to be visible to other readers (eg. bad language), they can delete an associated Student's review. 
 - A modal appears asking the user to confirm the review deletion.
 - On confirming, the Student who wrote the review will have their books_read decremented by 1 the same as if the Student had deleted the review
@@ -289,22 +289,22 @@ While Students have these features:
 ### HTML Validation
 [W3C](https://validator.w3.org/) was used to validate the HTML. Where the user had to log in, I navigated to 'View Page Source" and pasted the contents into the validator. 
 #### identified issues
-[alt tags](../book-awards/bookreviews/static/assets/design-images/alt%20image.png)
+[alt tags](bookreviews/static/assets/design-images/altimage.png)
 - identified no alt tags were added to my images; this is now fixed.
 
 ### CSS Validation 
 [Jigsaw](https://jigsaw.w3.org/css-validator/) was used to validate the CSS.
-![Jigsaw validation](../book-awards/bookreviews/static/assets/design-images/Jigsaw%20validation.png)
+![Jigsaw validation](bookreviews/static/assets/design-images/Jigsawvalidation.png)
 No issues identified.
 
 ### JQuery Validation
 [JSHint](https://jshint.com/) was used to validate the JQuery.
-![JSHint validation](../book-awards/bookreviews/static/assets/design-images/jshint%20validation.png)
+![JSHint validation](bookreviews/static/assets/design-images/jshintvalidation.png)
 - an unnecessary semicolon was at the end of the code. This has been removed.
 
 ### Python Validation
 [CI Pep8 Linter](https://pep8ci.herokuapp.com/) was used to validate the Python code. 
-![Python linter](../book-awards/bookreviews/static/assets/design-images/Pep8%20linter.png)
+![Python linter](bookreviews/static/assets/design-images/Pep8linter.png)
 - received no errors on routes.py & models.py
 
 ## Dynamic Testing
@@ -394,15 +394,15 @@ And on the following browsers:
 - One particularly unwanted deviation from my initial design is the layout of the reviews as they are created
 - I wanted to have, on desktop/laptop, neat rows of several reviews for the user to select and read as they please.
 - I failed to appreciate that it is difficult for the system to know how to lay this out when there is no set number to display; once it reached the end of the first row, it didn't know where to place other cards, causing issues such as this:
-![review display defect](../book-awards/bookreviews/static/assets/design-images/review%20display%20defect.png)
+![review display defect](bookreviews/static/assets/design-images/reviewdisplaydefect.png)
 - I reluctantly changed it so that, like with mobile, reviews were limited to one per row. 
 - I would like to return to this in future to see if there is a better way to write my code to enable an improved format on larger screens. 
 
 ## Performance Testing 
 - Lighthouse was used to test performance
-![Lighthouse home screen](../book-awards/bookreviews/static/assets/design-images/lighthouse1.png)
-![Lighthouse login screen](../book-awards/bookreviews/static/assets/design-images/lighthouse2.png)
-![Lighthouse about screen](../book-awards/bookreviews/static/assets/design-images/lighthouse3.png)
+![Lighthouse home screen](bookreviews/static/assets/design-images/lighthouse1.png)
+![Lighthouse login screen](bookreviews/static/assets/design-images/lighthouse2.png)
+![Lighthouse about screen](bookreviews/static/assets/design-images/lighthouse3.png)
 - I have tried to keep the code as simple as possible, creating a simple user interface structure to mitigate the amound of requests from my code. 
 - However, I know this is something I need to work on in future, and consider how I can simplify tasks more to improve performance. 
 
