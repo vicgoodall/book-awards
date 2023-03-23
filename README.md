@@ -42,7 +42,7 @@ Run start up code post deployment, then comment it out, so the book and roles va
 
 ## Database Design
 Based on the above initial designs, the database was designed with the following relationships using Figma:
-![database initial design](../book-awards/bookreviews/static/assets/design-images/Tortoise%20Prize%20DB%20Design.png)
+![database initial design](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/Tortoise%20Prize%20DB%20Design.png)
 - Teachers are linked to each of their students by their primary key
 - Students are linked to each of their reviews by their primary key
 - Students and Teachers both have roles assigned by linking to the Role's primary key
@@ -79,10 +79,10 @@ Based on the above initial designs, the database was designed with the following
 # Frontend Design
 ## Wireframes
 Provided are scans of the original wireframes.
-![Home screen wireframe](../book-awards/bookreviews/static/assets/design-images/home%20screen%20wireframe.png)
-![Account wireframe](../book-awards/bookreviews/static/assets/design-images/account%20wireframe.png)
-![Register wireframe](../book-awards/bookreviews/static/assets/design-images/registration%20wireframe.png)
-![Reviews wireframe](../book-awards/bookreviews/static/assets/design-images/reviews%20wireframe.png)
+![Home screen wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/home%20screen%20wireframe.png)
+![Account wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/account%20wireframe.png)
+![Register wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/registration%20wireframe.png)
+![Reviews wireframe](https://github.com/vicgoodall/book-awards/bookreviews/static/assets/design-images/reviews%20wireframe.png)
 The conclusion from the websites was that the site is going to be text heavy, and therefore it is imperative that each review is clearly distinguishable from one another.
 It is also noted that the user's Account screen, where they complete the majority of actions, will needed to be as simple as possible in layout, in order to facilitate the varying activities to be completed. 
 ## Colour Scheme
