@@ -125,7 +125,7 @@ body {
 @media(max-width: 481px) {
     a.brand-logo {
         font-size: 14px;
-        margin-left: 1%;
+        margin-left: 3%;
         position: absolute;
     }
 
@@ -144,7 +144,7 @@ body {
     .image-column {
         float: left;
         width: 16.66%;
-        padding: 5px;
+        padding: 2px;
         padding-left: 0%;
         margin-bottom: 5%;
     }
